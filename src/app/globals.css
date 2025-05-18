@@ -31,6 +31,16 @@ body {
 
 }
 
+.trianglel{
+  background: linear-gradient(180deg, #0251ef, #000403, #000100)
+}
+.trianglel2{
+  background: linear-gradient(200deg, #0251ef69, #000403, #000100)
+}
+html {
+  scroll-behavior: smooth;
+  overflow: visible;
+}
 .background{  
   width: 100%;
   height: 100%;
@@ -44,10 +54,10 @@ body {
 .s2{
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     background-repeat: repeat;
-    background: url(/nnnoise.svg);  
+    background: url(/download.jpg);  
   }
   
 /* Add smooth gradient + overlay if needed */

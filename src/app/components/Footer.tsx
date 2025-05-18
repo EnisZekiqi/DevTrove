@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-      <footer className="w-full py-6 mt-20 bg-black/90 text-white text-center border-t border-white/10">
+      <footer className="s2 w-full py-6 mt-20 bg-black/90 text-white text-center border-t border-white/10">
         <p className="text-sm">
           © {new Date().getFullYear()} DevTrove. Built by Enis with 💙
         </p>
