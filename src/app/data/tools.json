@@ -1,0 +1,21 @@
+[
+    {
+      "id": "1",
+      "name": "Postman",
+      "description": "API platform for building and testing APIs.",
+      "url": "https://postman.com",
+      "category": "API Tools",
+      "tags": ["testing", "API", "developer"],
+      "icon": "/icons/postman.png"
+    },
+    {
+      "id": "2",
+      "name": "RapidAPI",
+      "description": "Marketplace for APIs with testing and analytics.",
+      "url": "https://rapidapi.com",
+      "category": "API Tools",
+      "tags": ["marketplace", "API"],
+      "icon": "/icons/rapidapi.png"
+    }
+  ]
+  
