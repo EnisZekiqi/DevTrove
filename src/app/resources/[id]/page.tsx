@@ -38,9 +38,13 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
           <p className="mt-4 text-sm text-gray-400 w-2/3">{article.description}</p>
   
           <div className="flex gap-3 mt-2">
-          {Array.isArray(article.tag_list) && article.tag_list.map((tag: string) => (
-          <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">{tag}</span>
-        ))}
+          {typeof article.tag_list === 'string' &&
+  article.tag_list.split(',').map(tag => (
+    <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">
+      {tag.trim()}
+    </span>
+))}
+
 
           </div>
   

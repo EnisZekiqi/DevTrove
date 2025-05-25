@@ -87,7 +87,8 @@ export type FullArticle = {
 
 export async function fetchArticlesMultiPage(
   pages = 3,
-  sortBy?: 'newest' | 'likes'
+  sortBy?: 'newest' | 'likes' | 'discussed' | 'oldest',
+  tagFilter: Array<string> = []
 ) {
   const fetches = [];
 
@@ -97,22 +98,32 @@ export async function fetchArticlesMultiPage(
 
   const responses = await Promise.all(fetches);
   const articlesArrays = await Promise.all(responses.map(res => res.json()));
-  const allArticles = articlesArrays.flat();
+  let allArticles = articlesArrays.flat();
 
-  if (sortBy === 'likes') {
-    return allArticles.sort(
-      (a, b) => b.public_reactions_count - a.public_reactions_count
+  // Remove duplicates by article id
+  const uniqueMap = new Map();
+  allArticles.forEach(article => uniqueMap.set(article.id, article));
+  allArticles = Array.from(uniqueMap.values());
+
+  // Filter by tag
+  if (tagFilter.length > 0) {
+    allArticles = allArticles.filter(article =>
+      article.tag_list.some((tag: string) => tagFilter.includes(tag))
     );
   }
 
-  if (sortBy === 'newest') {
-    return allArticles.sort(
-      (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
-    );
+  // Sort
+  if (sortBy === 'likes' || sortBy === 'discussed') {
+    allArticles.sort((a, b) => b.public_reactions_count - a.public_reactions_count);
+  } else if (sortBy === 'newest') {
+    allArticles.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+  } else if (sortBy === 'oldest') {
+    allArticles.sort((a, b) => new Date(a.published_at).getTime() - new Date(b.published_at).getTime());
   }
 
   return allArticles;
 }
+
 
 // app/lib/api.ts
 

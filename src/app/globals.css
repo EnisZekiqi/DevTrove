@@ -110,3 +110,31 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 .repo::-webkit-scrollbar {
   width: 4px;
 }
+
+.custom-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0251EF;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+.custom-checkbox::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #0251EF;
+  border-radius: 2px;
+  opacity: 0;
+}
+.input[type="checkbox"]:checked + .custom-checkbox::after {
+  opacity: 1;
+}
+.input[type="checkbox"] {
+  display: none;
+}

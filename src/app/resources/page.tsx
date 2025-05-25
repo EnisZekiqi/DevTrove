@@ -22,7 +22,7 @@ const Page = () => {
         <div className="h-full flex flex-col items-start mt-[15%] justify-start w-full ml-[25%]">
           <h1 className="text-start text-xl font-medium">Articles</h1>
           <div className="flex flex-col items-start gap-4 mt-8">
-            {[...Array(5)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[600px] p-1.5 rounded-md" />
             ))}
           </div>
@@ -36,7 +36,7 @@ const Page = () => {
           </div>
           <div className="flex flex-col bg-[#080808] gap-2 w-[300px] h-[330px] rounded-xl p-2 border border-[#343434]">
             <p className="text-sm font-medium mb-4">Explore Repositories</p>
-            {[...Array(4)].map((_, i) => (
+            {[...Array(7)].map((_, i) => (
               <div key={i} className="animate-pulse bg-[#1a1a1a] h-4 w-48 rounded-sm" />
             ))}
           </div>
