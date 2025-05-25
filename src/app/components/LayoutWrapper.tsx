@@ -18,7 +18,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
             <SideBar />
           </div>
         )}
-        <main className="overflow-hidden">
+        <main className="overflow-hidden w-screen">
           {children}
         </main>
       </div>

@@ -28,6 +28,9 @@ export type Article = {
     name: string;
     profile_image: string;
   };
+  public_reactions_count: number;
+  public_comments_count: number;
+
 };
 
 export type Repo = {
@@ -37,7 +40,19 @@ export type Repo = {
   description: string;
   stargazers_count: number;
   language: string;
+  updated_at: string;
+  forks_count: number;
+  owner: {
+    avatar_url: string;
+    login: string;
+  };
+  license?: {
+    name: string;
+  };
+  topics?: string[]; // Optional, fetched with extra header
+
 };
+
 
 export async function fetchResources(): Promise<{
   articles: Article[];
@@ -49,6 +64,62 @@ export async function fetchResources(): Promise<{
   ]);
 
   return { articles, repositories };
+}
+
+/// fetch function for the articles section more than 1 page //
+
+export type FullArticle = {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  cover_image: string | null;
+  tag_list: string[];
+  user: {
+    name: string;
+    profile_image: string;
+  };
+  published_at: string;
+  public_reactions_count: number;
+  
+};
+
+
+export async function fetchArticlesMultiPage(
+  pages = 3,
+  sortBy?: 'newest' | 'likes'
+) {
+  const fetches = [];
+
+  for (let i = 1; i <= pages; i++) {
+    fetches.push(fetch(`https://dev.to/api/articles?per_page=10&page=${i}`));
+  }
+
+  const responses = await Promise.all(fetches);
+  const articlesArrays = await Promise.all(responses.map(res => res.json()));
+  const allArticles = articlesArrays.flat();
+
+  if (sortBy === 'likes') {
+    return allArticles.sort(
+      (a, b) => b.public_reactions_count - a.public_reactions_count
+    );
+  }
+
+  if (sortBy === 'newest') {
+    return allArticles.sort(
+      (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+    );
+  }
+
+  return allArticles;
+}
+
+// app/lib/api.ts
+
+export async function fetchArticleById(id: number) {
+  const res = await fetch(`https://dev.to/api/articles/${id}`);
+  if (!res.ok) throw new Error("Failed to fetch article by ID");
+  return res.json();
 }
 
 
