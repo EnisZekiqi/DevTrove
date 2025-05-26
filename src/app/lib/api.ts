@@ -125,6 +125,37 @@ export async function fetchArticlesMultiPage(
 }
 
 
+export async function fetchRepositoriesMultiPage(
+  pages = 3,
+  sortBy?: 'stars' | 'updated'
+): Promise<Repo[]> {
+  const fetches = [];
+
+  for (let i = 1; i <= pages; i++) {
+    fetches.push(
+      fetch(`https://api.github.com/search/repositories?q=topic:react+stars:>1000&per_page=10&page=${i}`)
+    );
+  }
+
+  const responses = await Promise.all(fetches);
+  const jsons = await Promise.all(responses.map(res => res.json()));
+  const allRepos = jsons.flatMap(data => data.items); // Combine all pages
+
+  if (sortBy === 'stars') {
+    return allRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
+  }
+
+  if (sortBy === 'updated') {
+    return allRepos.sort(
+      (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+    );
+  }
+
+  return allRepos;
+}
+
+
+
 // app/lib/api.ts
 
 export async function fetchArticleById(id: number) {

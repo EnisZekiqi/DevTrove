@@ -80,9 +80,10 @@ const Articles = () => {
 
     return ( 
         <div className="flex h-full w-screen mt-[5%] justify-center">
-            <div className="h-full flex flex-col gap-4 mt-[0%] ml-[0%] items-start justify-center z-[500]">
+            <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
             <h1 className="text-start text-xl font-medium">{filter.toLocaleUpperCase()} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'ALL'}</h1>
 
+                <div className="mt-6 flex flex-col gap-4">
                 {data?.map((article) => (
             <Link
                 href={`/resources/${article.id}?type=article`}
@@ -102,7 +103,8 @@ const Articles = () => {
                 {article.title}
                 </div>
             </Link>
-            ))}
+                ))}
+                </div> 
 
             </div>
             <div className=" flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
@@ -144,7 +146,7 @@ const Articles = () => {
                 <div className="flex flex-col gap-2 border border-[#343434] rounded-xl p-2 w-[200px]">
                     <p className="text-sm font-medium mb-2">Filter by Tag</p>
                     <select
-                    className="bg-[#121212] text-white border border-[#343434] rounded p-1"
+                    className="bg-[#121212] text-white border focus:outline-0 border-[#343434] rounded p-1"
                     onChange={(e) =>
                         setSelectedTags(e.target.value ? [e.target.value] : [])
                     }
