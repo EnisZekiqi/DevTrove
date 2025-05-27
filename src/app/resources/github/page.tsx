@@ -94,7 +94,7 @@ const GitHub = () => {
                 <div className="mt-6 flex flex-col gap-4">
                 {data?.map((repo) => (
             <Link
-                href={`/resources/${repo.id}?type=article`}
+                href={`/resources/${repo.id}?type=repo`}
                 key={repo.id}
             >
                 <div className="bg-[#080808] flex flex-col items-start gap-1 w-[600px] border border-[#343434] p-1.5 rounded-xl">

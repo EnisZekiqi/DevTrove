@@ -5,7 +5,7 @@ import { IoMdStar,IoMdStarOutline,IoMdCalendar,IoMdHeart   } from "react-icons/i
 import { AiOutlineFork } from "react-icons/ai";
 import { MdOutlineBookmarkBorder, } from "react-icons/md";
 import SaveRepoButton from "@/app/components/SaveRepoButton";
-import { fetchArticleById } from "@/app/lib/api";
+import { fetchArticleById,fetchRepoById } from "@/app/lib/api";
 type Props = {
   params: { id: string };
   searchParams: { type?: string };
@@ -62,8 +62,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
   }
 
   if (type === "repo") {
-    const repositories = await fetchRepositories(); // returns Repo[]
-    const repo = repositories.find((r) => r.id === id);
+    const repo = await fetchRepoById(id); // returns Repo
 
     if (!repo) return notFound();
 

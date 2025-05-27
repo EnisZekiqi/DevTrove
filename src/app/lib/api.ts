@@ -158,11 +158,15 @@ export async function fetchRepositoriesMultiPage(
 
 // app/lib/api.ts
 
-export async function fetchArticleById(id: number) {
+export async function fetchArticleById(id: number):Promise<Article>{
   const res = await fetch(`https://dev.to/api/articles/${id}`);
   if (!res.ok) throw new Error("Failed to fetch article by ID");
   return res.json();
 }
 
-
-  
+export async function fetchRepoById(id: number): Promise<Repo> {
+  const res = await fetch(`https://api.github.com/repositories/${id}`);
+  if (!res.ok) throw new Error("Failed to fetch repository by ID");
+  const data = await res.json();
+  return data;
+}
