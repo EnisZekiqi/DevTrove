@@ -5,7 +5,9 @@ import { IoMdStar,IoMdStarOutline,IoMdCalendar,IoMdHeart   } from "react-icons/i
 import { AiOutlineFork } from "react-icons/ai";
 import { MdOutlineBookmarkBorder, } from "react-icons/md";
 import SaveRepoButton from "@/app/components/SaveRepoButton";
-import { fetchArticleById,fetchRepoById } from "@/app/lib/api";
+import { fetchArticleById, fetchRepoById } from "@/app/lib/api";
+import tools from '@/app/data/tools.json'
+
 type Props = {
   params: { id: string };
   searchParams: { type?: string };
@@ -16,7 +18,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
   const id = Number(params.id);
   const type = searchParams.type;
 
-  if (!type || !["article", "repo"].includes(type)) {
+  if (!type || !["article", "repo","tools"].includes(type)) {
     return notFound(); // 🧼 fail-safe
   }
 
@@ -38,12 +40,13 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
           <p className="mt-4 text-sm text-gray-400 w-2/3">{article.description}</p>
   
           <div className="flex gap-3 mt-2">
-{typeof article.tag_list === 'string' &&
-  article.tag_list.split(',').map((tag: string) => (
-    <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">
-      {tag.trim()}
-    </span>
-))}
+{typeof article.tag_list === 'string' && article.tag_list
+  ? (article.tag_list as string).split(',').map((tag: string) => (
+      <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">
+        {tag.trim()}
+      </span>
+    ))
+  : null}
 
 
           </div>
@@ -83,7 +86,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
         </div>
           <SaveRepoButton repo={repo}/>
         </div>
-        <p className="mt-4 text-sm text-gray-300 w-2/3">{repo.description}</p>
+        <p className="mt-4 text-sm text-gray-300 w-[55%]">{repo.description}</p>
         <div className="flex flex-wrap w-2/4 items-center gap-1.5 mt-4">
         {repo.topics?.map((tag: string) => (
               <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">{tag}</span>
@@ -100,4 +103,54 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
       </div>
     );
   }
+  // Instead of checking type, check if the id exists in tools
+  const tool = tools.find((tool) => Number(tool.id) === id);
+
+  if (tool) {
+    return (
+      <div className="h-full w-full flex flex-col mt-[8%] ml-[25%] max-w-[700px]">
+        <div className="flex items-center gap-3 mb-4">
+          <img src={tool.icon} alt={tool.name} className="w-10 h-10" />
+          <h1 className="text-2xl font-bold">{tool.name}</h1>
+        </div>
+
+        <p className="text-sm text-gray-300">{tool.description}</p>
+
+        <div className="flex flex-wrap gap-2 mt-3">
+          {tool.tags?.map((tag: string) => (
+            <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">{tag.trim()}</span>
+          ))}
+        </div>
+
+        <div className="mt-4">
+          <h2 className="font-semibold">Category:</h2>
+          <p className="text-sm text-gray-400">{tool.category}</p>
+        </div>
+
+        <div className="mt-2">
+          <h2 className="font-semibold">Features:</h2>
+          <p className="text-sm text-gray-400">{tool.features}</p>
+        </div>
+
+        <div className="mt-2">
+          <h2 className="font-semibold">Pricing:</h2>
+          <p className="text-sm text-gray-400">{tool.pricing}</p>
+        </div>
+
+        <div className="mt-2">
+          <h2 className="font-semibold">Integration Support:</h2>
+          <p className="text-sm text-gray-400">{tool.integrationSupport}</p>
+        </div>
+
+        <a
+          href={tool.url}
+          target="_blank"
+          className="text-blue-400 underline mt-4 block w-fit"
+        >
+          Visit {tool.name}
+        </a>
+      </div>
+    );
+  }
+
 }

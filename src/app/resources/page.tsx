@@ -35,10 +35,10 @@ const Page = () => {
               <div key={i} className="animate-pulse bg-[#1a1a1a] h-4 w-40 rounded-sm" />
             ))}
           </div>
-          <div className="flex flex-col bg-[#080808] gap-2 w-[300px] h-[330px] rounded-xl p-2 border border-[#343434]">
+          <div className="flex flex-col bg-[#080808] gap-4 w-[300px] h-[330px] rounded-xl p-2 border border-[#343434]">
             <p className="text-sm font-medium mb-4">Explore Repositories</p>
             {[...Array(7)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-[#1a1a1a] h-4 w-48 rounded-sm" />
+              <div key={i} className="animate-pulse bg-[#1a1a1a] h-8 w-52 rounded-sm" />
             ))}
           </div>
         </div>
@@ -79,19 +79,22 @@ const Page = () => {
            </div>
            </div>
            <div className="flex flex-col items-start pr-6 mt-[5%] gap-10">
-              <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[300px] h-[300px]">
+              <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[300px] h-[300px]">
               <p className="text-sm font-medium mb-4">Latest Tools</p>
-            {tools.map((tool) => (
-              <div key={tool.id} className="text-sm font-light">
+            {tools.slice(0,7).map((tool) => (
+              <Link href={`/resources/${tool.id}?type=tools`} key={tool.id}>
+                 <div  className="text-sm font-light gap-1 flex-row-reverse flex items-center">
                 {tool.name}
+                <img src={tool.icon} alt="" className="w-6 h-6" />
                   </div>
+             </Link>
                 ))}
               </div>
               <div className="repo flex flex-col bg-[#080808] gap-2 w-[300px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
               <p className="text-sm font-medium mb-4">Explore Repositories</p>
             {data?.repositories.slice(0,7).map((repo) => (
               <Link href={`/resources/${repo.id}?type=repo`} key={repo.id}>
-                 <div className="text-sm font-light flex flex-col items-start gap-2 border-b border-[#343434]">
+                 <div className="text-sm font-light flex flex-col items-start gap-2 border-b pb-1 border-[#343434]">
                 <h1 className="text-sm font-medium">{repo.name}</h1>
                 <span className="flex items-center gap-1 text-gray-400"><p className="rounded-full h-2 w-2 "
                   style={{ backgroundColor: repo.language === 'JavaScript' ? 'yellow': (repo.language === 'TypeScript' ? 'aqua':(repo.language === 'C++' ? 'blue':'#343434'))}}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRepositoriesMultiPage } from "@/app/lib/api";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 type Repo = {
     id: number;
@@ -32,52 +33,79 @@ const GitHub = () => {
 
     const { data, isLoading,error } = useQuery<Repo[]>({
       queryKey: ['repositories', repoFilter],
-      queryFn: () => fetchRepositoriesMultiPage(3, repoFilter),
+      queryFn: () => fetchRepositoriesMultiPage(3, repoFilter)
     });
       
       
 
     if (isLoading) {
         return (
-            <div className="h-full w-screen flex items-center justify-center">
-              <div className="h-full flex flex-col items-start mt-[15%] justify-start w-full ml-[25%]">
-                <h1 className="text-start text-xl font-medium">Articles</h1>
-                <div className="flex flex-col items-start gap-4 mt-8">
-                  {[...Array(8)].map((_, i) => (
+          <div className="flex h-full w-screen mt-[5%] justify-center">
+            <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
+            <h1 className="text-start text-xl font-medium">{repoFilter === 'stars'? 'Most Stars': 'Newest Update'} </h1>
+
+                <div className="mt-6 flex flex-col gap-4">
+                {[...Array(8)].map((_, i) => (
                     <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[600px] p-1.5 rounded-md" />
                   ))}
-                </div>
-              </div>
-              <div className="filters pr-6 mt-[5%] ml-[5%]">
+                </div> 
+               <div className="empty opacity-0 h-[70px]"></div>
+            </div>
+            <div className=" flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
                             <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
                 <p className="text-sm font-medium mb-4">Sort by</p>
                 <label className="flex gap-2 items-center">
                     <input
                     type="radio"
                     name="filter"
-                    value="newest"
+                    value="stars"
                     checked={repoFilter === 'stars'}
                     className="input"        
-                    onChange={(e) => setRepoFilter(e.target.value as any)}
+                    onChange={(e) => setRepoFilter(e.target.value as 'stars' | 'updated')}
                     />
-                    Newest
+                    Most Stars
                     </label>
                     
                 <label className="flex gap-2 items-center">
                     <input
                     type="radio"
                     name="filter"
-                    value="likes"
+                    value="updated"
                     checked={repoFilter === 'updated'}
-                    onChange={(e) => setRepoFilter(e.target.value as any)}
+                    onChange={(e) => setRepoFilter(e.target.value as 'stars' | 'updated')}
                     />
-                    Most Liked
+                    Newest Update
                 </label>
-               
+                
                 </div>
-
+                <div className="flex flex-col bg-transparent opacity-0 gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
+                <p className="text-sm font-medium mb-4">Sort by</p>
+                <label className="flex gap-2 items-center">
+                    <input
+                    type="radio"
+                    name="filter"
+                    value="stars"
+                    checked={repoFilter === 'stars'}
+                    className="input"        
+                    onChange={(e) => setRepoFilter(e.target.value as 'stars' | 'updated')}
+                    />
+                    Most Stars
+                    </label>
+                    
+                <label className="flex gap-2 items-center">
+                    <input
+                    type="radio"
+                    name="filter"
+                    value="updated"
+                    checked={repoFilter === 'updated'}
+                    onChange={(e) => setRepoFilter(e.target.value as 'stars' | 'updated')}
+                    />
+                    Newest Update
+                </label>
+                
+                </div>
             </div>
-            </div>
+    </div>
           );
     }
 
@@ -88,8 +116,12 @@ const GitHub = () => {
     
 
     return ( 
-        <div className="flex h-full w-screen mt-[5%] justify-center">
+      <motion.div
+        initial={{opacity:0}}
+        animate={{opacity:1,transition:{duration:0.7}}}
+        className="flex h-full w-screen mt-[5%] justify-center">
             <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
+            <h1 className="text-start text-xl font-medium">{repoFilter === 'stars'? 'Most Stars': 'Newest Update'} </h1>
 
                 <div className="mt-6 flex flex-col gap-4">
                 {data?.map((repo) => (
@@ -113,10 +145,38 @@ const GitHub = () => {
             </Link>
                 ))}
                 </div> 
-
+               <div className="empty opacity-0 h-[70px]"></div>
             </div>
-         
-    </div>
+            <div className=" flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
+                            <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
+                <p className="text-sm font-medium mb-4">Sort by</p>
+                <label className="flex gap-2 items-center">
+                    <input
+                    type="radio"
+                    name="filter"
+                    value="stars"
+                    checked={repoFilter === 'stars'}
+                    className="input"        
+                    onChange={(e) => setRepoFilter(e.target.value as 'stars' | 'updated')}
+                    />
+                    Most Stars
+                    </label>
+                    
+                <label className="flex gap-2 items-center">
+                    <input
+                    type="radio"
+                    name="filter"
+                    value="updated"
+                    checked={repoFilter === 'updated'}
+                    onChange={(e) => setRepoFilter(e.target.value as 'stars' | 'updated')}
+                    />
+                    Newest Update
+                </label>
+                
+                </div>
+                
+            </div>
+    </motion.div>
      );
 }
  
