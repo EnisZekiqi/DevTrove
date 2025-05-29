@@ -3,8 +3,11 @@ import { usePathname } from 'next/navigation';
 
 import Link from 'next/link';
 import { motion,AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { IoMdClose,IoMdMenu ,IoMdArrowBack ,IoMdSearch  } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
+import { fetchArticlesMultiPage } from '../lib/api';
+import { QueryClient } from '@tanstack/react-query';
 
 export default function Navbar() {
 
@@ -21,6 +24,34 @@ export default function Navbar() {
     setNavSetting(prev => !prev)
   }
 
+
+  // search functions with fetching then showing the written prompt
+
+  const { data, isLoading, error } = useQuery({
+      queryKey: ['resources'],
+      queryFn: async () => fetchArticlesMultiPage(),
+      staleTime: 1000 * 60 * 5, // 5 minutes fresh
+    });
+
+  
+  const [searchQuery, setSearchQuery] = useState('')
+  
+  type Article = { id: string; [key: string]: any };
+  const [searchResult, setSearchResult] = useState<Article[]>([])
+  
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+    setSearchResult([])
+    return
+    }
+    const filtered = data
+      ? data.filter((article) =>
+          String(article.id).toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
+    setSearchResult(filtered as any)
+    console.log(searchResult)
+},[searchQuery])
   
   return (
     <motion.nav
@@ -49,9 +80,16 @@ export default function Navbar() {
           </div>
         <div className="flex items-center gap-4">
           {!isHome && <> 
-          <input type="text" className='focus:outline-0 rounded-md p-0.5 bg-transparent border border-[#343434]' /></>}
+          <input type="text" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className='focus:outline-0 rounded-md p-0.5 bg-transparent border border-[#343434]' /></>}
         <Link href={isResources ? '/resources':(isHome ? '/':'')}> <button className={`rounded-md ${isHome ? 'p-2.5 text-md font-semibold':'p-1 text-sm font-medium'}  border cursor-pointer hover:bg-[#0251EF] border-[#0251EF] transition duration-300`}>{isHome ? <p>Let's Start</p>: <IoMdArrowBack size={22}/>}</button></Link>
-
+          {searchResult.length < 0 ? <p>search something</p> : 
+            searchResult.map((data) => (
+              <div key={data.id}>
+                {data.title}
+                {data.url}
+              </div>
+            ))
+            }
           </div>
       </div>
 

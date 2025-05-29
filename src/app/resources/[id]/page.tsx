@@ -48,7 +48,6 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
     ))
   : null}
 
-
           </div>
   
           
@@ -58,8 +57,8 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
             ) : (
             <div className="text-sm text-gray-400 mt-4">No cover image available.</div>
             )}
-        <span className="mt-2 flex items-center text-lg"><IoMdHeart size={22} />{article.public_reactions_count}</span> 
-
+        <span className="mt-4 mb-4 flex items-center text-lg"><IoMdHeart size={22} />{article.public_reactions_count}</span> 
+            <a href={article.url} className="mt-8 text-blue-400 underline w-fit">Visit full article</a>
         </div>
       );
   }

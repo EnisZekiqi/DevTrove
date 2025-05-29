@@ -90,7 +90,7 @@
     "url": "https://stoplight.io",
     "category": "API Tools",
     "tags": ["OpenAPI", "design-first", "documentation"],
-    "icon": "https://stoplight.io/images/favicon/favicon-32x32.png",
+    "icon": "https://cdn.prod.website-files.com/6320e912264435aca2ab0351/63d99315deb7896ae663ecd7_Stoplight%20Logo.svg",
     "features": ["Visual OpenAPI editor", "Mocking", "Collaboration", "API Explorer"],
     "pricing": "Free tier available, Pro starts at $79/month",
     "integrationSupport": ["GitHub", "OpenAPI", "Swagger", "VS Code"]
@@ -102,7 +102,7 @@
     "url": "https://beeceptor.com",
     "category": "API Tools",
     "tags": ["mocking", "HTTP", "debugging"],
-    "icon": "https://beeceptor.com/favicon.ico",
+    "icon": "https://cdn.beeceptor.com/assets/images/logo-beeceptor-white-bg.svg",
     "features": ["Create mock endpoints", "Inspect traffic", "Rule-based mocking"],
     "pricing": "Free tier available, paid plans from $10/month",
     "integrationSupport": ["REST clients", "Postman", "Curl"]
@@ -114,7 +114,7 @@
     "url": "https://mockoon.com",
     "category": "API Tools",
     "tags": ["mock server", "testing", "offline"],
-    "icon": "https://mockoon.com/images/logo/favicon-32x32.png",
+    "icon": "https://mockoon.com/images/logo-eyes.svg",
     "features": ["Offline-first", "Response templating", "Latency simulation", "CORS support"],
     "pricing": "Free and open-source",
     "integrationSupport": ["Docker", "Node.js"]
@@ -126,7 +126,7 @@
     "url": "https://reqbin.com",
     "category": "API Tools",
     "tags": ["HTTP", "testing", "browser"],
-    "icon": "https://reqbin.com/Content/favicon-32x32.png",
+    "icon": "https://reqbin.com/static/favicon.ico",
     "features": ["Simple UI", "Cross-platform", "Online API testing", "Request history"],
     "pricing": "Free for basic usage",
     "integrationSupport": ["REST APIs", "Browser"]
@@ -138,7 +138,7 @@
     "url": "https://chrome.google.com/webstore/detail/talend-api-tester/aejoelaoggembcahagimdiliamlcdmfm",
     "category": "API Tools",
     "tags": ["Chrome extension", "REST", "testing"],
-    "icon": "https://www.talend.com/wp-content/themes/talend/assets/favicons/favicon-32x32.png",
+    "icon": "https://lh3.googleusercontent.com/MPE3_HeeIE8t_fWtyoZvtvUXwJLn1BxQZRVIQR9FRpVC7iKS3C5p6td7CAVyIAlEP_tljLwJ-pWMIxuJiHKnxT-YDA=s60",
     "features": ["Request builder", "History tracking", "Header customization"],
     "pricing": "Free",
     "integrationSupport": ["Chrome", "REST services"]
@@ -150,7 +150,7 @@
     "url": "https://httpbin.org",
     "category": "API Tools",
     "tags": ["debugging", "HTTP", "utility"],
-    "icon": "https://httpbin.org/favicon.ico",
+    "icon": "https://avatars.githubusercontent.com/u/10251060?s=48&v=4",
     "features": ["Echo requests", "Response simulation", "Authentication test"],
     "pricing": "Free and open-source",
     "integrationSupport": ["Curl", "Postman", "Python requests"]

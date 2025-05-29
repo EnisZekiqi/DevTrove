@@ -35,7 +35,9 @@ const Tools = () => {
             initial={{ opacity: 0 }}
             animate={{opacity:1,transition:{duration:0.7,delay:0.2}}}
             className="h-full w-screen flex items-center justify-center mt-[5%]">
-            <div className="h-full flex flex-col mt-[0%] gap-4 -ml-[5%] items-start justify-center">
+        <div className="h-full flex flex-col mt-[0%] gap-4 -ml-[5%] items-start justify-center">
+        <h1 className="text-start text-xl font-medium">Tools </h1>
+
                 {filter !== 'All' ?
 filteredTools.map((tool) => (
   <Link href={`/resources/${tool.id}?type=tools`} key={tool.id} className="bg-[#080808] flex flex-col items-start gap-1 w-[600px] border border-[#343434] p-1.5 rounded-xl">
@@ -71,20 +73,24 @@ filteredTools.map((tool) => (
                 
                 <div className="empty h-[70px] opacity-0"></div>
             </div>
-            <div className="flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
-        <div className=" bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
-    <select value={filter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilter(e.target.value as any)} className="bg-[#1a1a1a] text-white p-1 rounded">
+            <div className="flex flex-col fixed pr-6 gap-10 mt-[10%] ml-[0%] right-0 top-0 z-[500]">
+        <div className=" bg-transparent gap-2 border border-[#343434] flex items-center justify-between rounded-xl p-2 w-[200px] h-auto">
+        <p>Payment :</p>
+            <select value={filter} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilter(e.target.value as any)} className="bg-[#1a1a1a] text-white focus:outline-0 p-1 rounded">
     <option value="All">All</option>
     <option value="Free">Free</option>
   </select>
-         </div>
-  <select value={support} onChange={(e) => setSupport(e.target.value as any)} className="bg-[#1a1a1a] text-white p-1 rounded">
+          </div>
+          <div className=" bg-transparent gap-2 border border-[#343434] flex items-center justify-between rounded-xl p-2 w-[200px] h-auto">
+            <p>Tags :</p>
+  <select value={support} onChange={(e) => setSupport(e.target.value as any)} className="bg-[#1a1a1a] text-white p-1 rounded focus:outline-0">
     <option value="All">All</option>
     <option value="GitHub">GitHub</option>
     <option value="OpenAPI">OpenAPI</option>
     <option value="Node.js">Node.js</option>
     <option value="Docker">Docker</option>
-  </select>
+            </select>
+            </div>
 </div>
 
         </motion.div>
