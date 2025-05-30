@@ -1,4 +1,3 @@
-'use server'
 
 // lib/api.ts
 export async function fetchArticles() {
@@ -54,16 +53,20 @@ export type Repo = {
 };
 
 
+
 export async function fetchResources(): Promise<{
   articles: Article[];
   repositories: Repo[];
 }> {
-  const [articles, repositories] = await Promise.all([
+  const [articlesData, repositoriesData] = await Promise.all([
     fetchArticles(),
     fetchRepositories()
   ]);
 
-  return { articles, repositories };
+  return {
+    articles: articlesData as Article[],
+    repositories: repositoriesData as Repo[]
+  };
 }
 
 /// fetch function for the articles section more than 1 page //

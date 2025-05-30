@@ -124,7 +124,7 @@ const GitHub = () => {
             <h1 className="text-start text-xl font-medium">{repoFilter === 'stars'? 'Most Stars': 'Newest Update'} </h1>
 
                 <div className="mt-6 flex flex-col gap-4">
-                {data?.map((repo) => (
+                {data?.filter((repo): repo is Repo => !!repo && typeof repo.id !== 'undefined').map((repo) => (
             <Link
                 href={`/resources/${repo.id}?type=repo`}
                 key={repo.id}

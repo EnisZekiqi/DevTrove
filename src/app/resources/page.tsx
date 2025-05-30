@@ -12,7 +12,7 @@ const Page = () => {
 
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['resources'],
+    queryKey: ['resources','all'],
     queryFn: fetchResources,
     staleTime: 1000 * 60 * 5, // 5 minutes fresh
   });
@@ -48,7 +48,7 @@ const Page = () => {
   
   if (error) return <div>Something went wrong: {error.message}</div>;
   
-
+  console.log('data in page:', data);
     return ( 
         <div className="h-full w-screen flex items-center justify-center ">
             <div className="h-full flex flex-col items-start mt-[15%] justify-start w-full ml-[25%]">
@@ -58,7 +58,7 @@ const Page = () => {
             <Link
                onMouseEnter={() => {
                  queryClient.prefetchQuery({
-                   queryKey: ['resources'],
+                   queryKey: ['resources','all'],
                    queryFn: fetchResources,
                    staleTime: 1000 * 60 * 5
                  })
@@ -175,9 +175,9 @@ const Page = () => {
             <div className="flex flex-col mt-2 gap-4">
               {showRepo.length < 0 ? <p>Nothing Saved</p> :
               showRepo.map((repo) => (
-                <div className="flex items-center justify-between gap-18">
+                <div className="flex items-center justify-between gap-18"key={repo.id}>
                    <Link href={repo.html_url}>
-                  <div key={repo.id} className="text-gray-300 flex items-center gap-1.5">
+                  <div  className="text-gray-300 flex items-center gap-1.5">
                     <img className="w-6 h-6 border border-[#343434] flex items-center" src={repo.owner.avatar_url} alt="" />
                     {repo.name}
                   </div>

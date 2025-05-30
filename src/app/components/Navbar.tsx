@@ -3,11 +3,12 @@ import { usePathname } from 'next/navigation';
 
 import Link from 'next/link';
 import { motion,AnimatePresence } from 'motion/react';
-import { useState,useEffect } from 'react';
+import { useState,useMemo,useEffect } from 'react';
 import { IoMdClose,IoMdMenu ,IoMdArrowBack ,IoMdSearch  } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
-import { fetchArticlesMultiPage } from '../lib/api';
+import { fetchArticlesMultiPage,fetchRepositories } from '../lib/api';
 import { QueryClient } from '@tanstack/react-query';
+import tools from '@/app/data/tools.json'
 
 export default function Navbar() {
 
@@ -26,33 +27,29 @@ export default function Navbar() {
 
 
   // search functions with fetching then showing the written prompt
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResult, setSearchResult] = useState<typeof tools>([])
+  
   const { data, isLoading, error } = useQuery({
-      queryKey: ['resources'],
-      queryFn: async () => fetchArticlesMultiPage(),
-      staleTime: 1000 * 60 * 5, // 5 minutes fresh
-    });
+    queryKey: ['showresources'],
+    queryFn: async () => fetchRepositories(),
+    staleTime: 1000 * 60 * 5,
+  });
 
-  
-  const [searchQuery, setSearchQuery] = useState('')
-  
-  type Article = { id: string; [key: string]: any };
-  const [searchResult, setSearchResult] = useState<Article[]>([])
-  
+  const filteredArticles = useMemo(() => {  /// memorise the data for the repositories
+    if (!data || searchQuery.trim() === '') return [];
+    return data.filter((article) =>
+      article.name.includes(searchQuery.toLowerCase())
+    );
+  }, [data, searchQuery]);
+
+  const [chooseWhich,setChooseWhich]=useState('repo')
+
   useEffect(() => {
-    if (searchQuery.trim() === '') {
-    setSearchResult([])
-    return
-    }
-    const filtered = data
-      ? data.filter((article) =>
-          String(article.id).toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : [];
-    setSearchResult(filtered as any)
-    console.log(searchResult)
-},[searchQuery])
-  
+    const find = tools.filter((tool) => tool.name.includes(searchQuery.toLocaleLowerCase()))
+    setSearchResult(find)
+  },[searchQuery])
+
   return (
     <motion.nav
       initial={{ opacity: 0}}
@@ -80,16 +77,69 @@ export default function Navbar() {
           </div>
         <div className="flex items-center gap-4">
           {!isHome && <> 
-          <input type="text" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className='focus:outline-0 rounded-md p-0.5 bg-transparent border border-[#343434]' /></>}
+          <input type="text"  value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className='focus:outline-0 rounded-md p-0.5 bg-transparent border border-[#343434]' /></>}
         <Link href={isResources ? '/resources':(isHome ? '/':'')}> <button className={`rounded-md ${isHome ? 'p-2.5 text-md font-semibold':'p-1 text-sm font-medium'}  border cursor-pointer hover:bg-[#0251EF] border-[#0251EF] transition duration-300`}>{isHome ? <p>Let's Start</p>: <IoMdArrowBack size={22}/>}</button></Link>
-          {searchResult.length < 0 ? <p>search something</p> : 
-            searchResult.map((data) => (
-              <div key={data.id}>
-                {data.title}
-                {data.url}
-              </div>
-            ))
-            }
+          {searchQuery.trim() !== '' && 
+          <AnimatePresence mode="wait">
+          <motion.ul
+            initial={{ opacity: 0, y: -100 }}
+            animate={{opacity:1,y:0,transition:{duration:0.3}}}
+            exit={{opacity:0,y:-100,transition:{duration:0.3}}}
+                className='fixed top-15 bg-[#080808] border border-[#343434] w-[300px] right-0 p-2 space-y-2 z-[500]'>
+                <div className="flex relative items-center px-2 justify-around mt-2">
+                  <button className='cursor-pointer text-start -ml-2' onClick={()=>setChooseWhich('repo')}>Repositories</button>
+                  <button className='cursor-pointer' onClick={()=>setChooseWhich('tool')}>Tools</button>
+                </div>
+                <motion.span
+                  layout
+                  transition={{type:'spring',stiffness:250,damping:20}}
+                  className="absolute h-1 bg-[#0251EF] rounded-full mb-6" style={{ width: '50%', left: chooseWhich === 'repo' ? '0%' : '50%' }}></motion.span>
+                <div className='mt-8'>
+                  {chooseWhich === 'repo' ? 
+                  
+                  filteredArticles.length === 0 ? (
+                    <p className="text-gray-400 text-sm text-center mt-4">No repositories found.</p>
+                  ) : (
+                    filteredArticles.map((article) => (
+                      <Link href={article.html_url} target="_blank"
+                      key={article.id}
+                      >
+                        <motion.li
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
+                        className="mt-2 text-gray-300/80"
+                      >
+                        {article.name}
+                      </motion.li>
+                      </Link>
+                    ))
+                  )
+                  
+
+: 
+                    <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
+                      className="mt-8 w-full">
+                     {searchResult.length === 0 ? (
+                  <p className="text-gray-400 text-sm text-center mt-4">No tools found.</p>
+                ) : (
+                searchResult.slice(0, 8).map((tool) => (
+                 <Link href={tool.url} key={tool.id}>
+                <div className="mt-2 text-gray-300/80" >
+                      {tool.name}
+                    </div>
+                    </Link>
+                  ))
+                )}
+
+                   </motion.div> 
+              }
+         </div>
+        </motion.ul>
+          </AnimatePresence>
+
+         }
           </div>
       </div>
 

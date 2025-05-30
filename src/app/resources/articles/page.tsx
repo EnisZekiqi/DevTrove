@@ -23,15 +23,19 @@ const Articles = () => {
     if (isLoading) {
         return (
             <div className="h-full w-screen flex items-center justify-center">
-              <div className="h-full flex flex-col items-start mt-[15%] justify-start w-full ml-[25%]">
-              <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'All'}</h1>
-              <div className="flex flex-col items-start gap-4 mt-8">
-                  {[...Array(8)].map((_, i) => (
+              <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
+            <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'All'}</h1>
+
+            <div className="mt-6 flex flex-col gap-4">
+                {[...Array(8)].map((_, i) => (
                     <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[600px] p-1.5 rounded-md" />
                   ))}
-                </div>
-              </div>
-              <div className="filters pr-6 mt-[5%] ml-[5%]">
+                </div> 
+                <div className="empty opacity-0 h-[100px]"></div>
+
+            </div>
+
+            <div className=" flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
                             <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
                 <p className="text-sm font-medium mb-4">Sort by</p>
                 <label className="flex gap-2 items-center">
@@ -67,7 +71,26 @@ const Articles = () => {
                     Oldest
                 </label>
                 </div>
+                <div className="flex flex-col gap-2 border border-[#343434] rounded-xl p-2 w-[200px]">
+                    <p className="text-sm font-medium mb-2">Filter by Tag</p>
+                    <select
+                    className="bg-[#121212] text-white border focus:outline-0 border-[#343434] rounded p-1"
+                    onChange={(e) =>
+                        setSelectedTags(e.target.value ? [e.target.value] : [])
+                    }
+                    defaultValue=""
+                    >
+                    <option value="">All</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="react">React</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="programming">programming</option>
+                        <option value="webdev">webdev</option>
+                        <option value="gamedev">gamedev</option>
+                        <option value="discuss">discuss</option>
 
+                    </select>
+                </div>
             </div>
             </div>
           );
