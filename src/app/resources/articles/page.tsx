@@ -23,7 +23,7 @@ const Articles = () => {
     if (isLoading) {
         return (
             <div className="h-full w-screen flex items-center justify-center">
-              <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
+              <div className="h-full flex flex-col gap-4 mt-[6%] -ml-[5%] items-start justify-center z-[500]">
             <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'All'}</h1>
 
             <div className="mt-6 flex flex-col gap-4">
@@ -107,7 +107,7 @@ const Articles = () => {
             initial={{ opacity: 0 }}
             animate={{opacity:1,transition:{duration:0.7}}}
             className="flex h-full w-screen mt-[5%] justify-center">
-            <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
+            <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[0%] items-start justify-center z-[500]">
             <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'All'}</h1>
 
                 <div className="mt-6 flex flex-col gap-4">

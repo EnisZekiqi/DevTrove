@@ -35,7 +35,7 @@ const Tools = () => {
             initial={{ opacity: 0 }}
             animate={{opacity:1,transition:{duration:0.7,delay:0.2}}}
             className="h-full w-screen flex items-center justify-center mt-[5%]">
-        <div className="h-full flex flex-col mt-[0%] gap-4 -ml-[5%] items-start justify-center">
+        <div className="h-full flex flex-col mt-[0%] gap-4 -ml-[0%] items-start justify-center">
         <h1 className="text-start text-xl font-medium">Tools </h1>
 
                 {filter !== 'All' ?

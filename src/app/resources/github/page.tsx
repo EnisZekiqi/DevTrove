@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchRepositoriesMultiPage } from "@/app/lib/api";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { keepPreviousData } from '@tanstack/react-query';
 
 type Repo = {
     id: number;
@@ -33,7 +34,8 @@ const GitHub = () => {
 
     const { data, isLoading,error } = useQuery<Repo[]>({
       queryKey: ['repositories', repoFilter],
-      queryFn: () => fetchRepositoriesMultiPage(3, repoFilter)
+        queryFn: () => fetchRepositoriesMultiPage(3, repoFilter),
+        placeholderData: keepPreviousData, // ✅ v5-compliant
     });
       
       
@@ -120,7 +122,7 @@ const GitHub = () => {
         initial={{opacity:0}}
         animate={{opacity:1,transition:{duration:0.7}}}
         className="flex h-full w-screen mt-[5%] justify-center">
-            <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
+            <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[0%] items-start justify-center z-[500]">
             <h1 className="text-start text-xl font-medium">{repoFilter === 'stars'? 'Most Stars': 'Newest Update'} </h1>
 
                 <div className="mt-6 flex flex-col gap-4">

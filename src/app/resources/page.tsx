@@ -9,8 +9,23 @@ import { queryClient } from "../lib/queryClient";
 import { IoMdRemove } from "react-icons/io";
 
 const Page = () => {
+  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
+    // Listen to window resize
+    window.addEventListener('resize', handleResize);
 
+    // Set initial width
+    handleResize();
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isDesktop = windowWidth >= 1124; 
   const { data, isLoading, error } = useQuery({
     queryKey: ['resources','all'],
     queryFn: fetchResources,
@@ -45,75 +60,114 @@ const Page = () => {
       </div>
     );
   }
+
+  
+
   
   if (error) return <div>Something went wrong: {error.message}</div>;
   
-  console.log('data in page:', data);
+
+  
+
+  const isDesktopV2 = windowWidth >= 1114
+
     return ( 
-        <div className="h-full w-screen flex items-center justify-center ">
-            <div className="h-full flex flex-col items-start mt-[15%] justify-start w-full ml-[25%]">
-            <h1 className="text-start text-xl font-medium">Articles</h1>
-           <div className="flex flex-col items-start gap-4 mt-8">
-           {data?.articles.map((article) => (
-            <Link
-               onMouseEnter={() => {
-                 queryClient.prefetchQuery({
-                   queryKey: ['resources','all'],
-                   queryFn: fetchResources,
-                   staleTime: 1000 * 60 * 5
-                 })
-            }}
-               href={`/resources/${article.id}?type=article`} key={article.id}>
-            <div className="bg-[#080808] flex flex-col items-start gap-1 w-[600px] border border-[#343434] p-1.5 rounded-xl">
-               <div className="flex items-center gap-1.5">
-               <div className="flex items-center gap-2 mb-0.5">
-            <img src={article.user.profile_image} alt={article.user.name} className="w6 h-6 rounded-full" />
-            <p className="text-sm font-light text-gray-300">{article.user.name}</p>
-            </div>
-              </div>
-               {article.title}
-              
-             </div>
-            </Link>
-          ))}
-           </div>
-           </div>
-           <div className="flex flex-col items-start pr-6 mt-[5%] gap-10">
-              <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[300px] h-[300px]">
-              <p className="text-sm font-medium mb-4">Latest Tools</p>
-            {tools.slice(0,7).map((tool) => (
-              <Link href={`/resources/${tool.id}?type=tools`} key={tool.id}>
-                 <div  className="text-sm font-light gap-1 flex-row-reverse flex items-center">
-                {tool.name}
-                <img src={tool.icon} alt="" className="w-6 h-6" />
+      <div className="h-full w-screen flex items-center justify-center">
+      <div
+        className={`h-full w-full flex ${isDesktop ? 'flex-row' : 'flex-col'} mt-[55%] sm:mt-[40%] md:mt-[30%] lg:mt-[15%] items-start justify-start`}
+      >
+        {/* Left Section - Articles */}
+        <div className={`flex flex-col items-start mt-[0%] justify-start w-full ${isDesktop ? 'ml-[25%]' : 'ml-[5%]'}`}>
+          <h1 className="text-start text-xl font-medium">Articles</h1>
+          <div className="flex flex-col items-start gap-4 mt-8">
+            {data?.articles.map((article) => (
+              <Link
+                onMouseEnter={() => {
+                  queryClient.prefetchQuery({
+                    queryKey: ['resources', 'all'],
+                    queryFn: fetchResources,
+                    staleTime: 1000 * 60 * 5,
+                  });
+                }}
+                href={`/resources/${article.id}?type=article`}
+                key={article.id}
+              >
+                <div className="bg-[#080808] flex flex-col items-start gap-1 w-[300px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <img
+                        src={article.user.profile_image}
+                        alt={article.user.name}
+                        className="w6 h-6 rounded-full"
+                      />
+                      <p className="text-sm font-light text-gray-300">
+                        {article.user.name}
+                      </p>
+                    </div>
                   </div>
-             </Link>
-                ))}
-              </div>
-              <div className="repo flex flex-col bg-[#080808] gap-2 w-[300px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
-              <p className="text-sm font-medium mb-4">Explore Repositories</p>
-            {data?.repositories.slice(0,7).map((repo) => (
-              <Link href={`/resources/${repo.id}?type=repo`} key={repo.id}>
-                 <div className="text-sm font-light flex flex-col items-start gap-2 border-b pb-1 border-[#343434]">
-                <h1 className="text-sm font-medium">{repo.name}</h1>
-                <span className="flex items-center gap-1 text-gray-400"><p className="rounded-full h-2 w-2 "
-                  style={{ backgroundColor: repo.language === 'JavaScript' ? 'yellow': (repo.language === 'TypeScript' ? 'aqua':(repo.language === 'C++' ? 'blue':'#343434'))}}
-                />
-                {repo.language || 'none'}
-                </span>
-              </div>
-             </Link>
+                  {article.title}
+                </div>
+              </Link>
             ))}
-             
           </div>
-           </div>
         </div>
+    
+        {/* Right Section - Tools & Repos */}
+        <div className={`flex  flex-col items-start ${isDesktop ? 'pr-6 mt-[5%]' : 'mt-10 ml-[5%]'} gap-10`}>
+          {/* Tools */}
+          <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[300px] h-[300px]">
+            <p className="text-sm font-medium mb-4">Latest Tools</p>
+            {tools.slice(0, 7).map((tool) => (
+              <Link href={`/resources/${tool.id}?type=tools`} key={tool.id}>
+                <div className="text-sm font-light gap-1 flex-row-reverse flex items-center">
+                  {tool.name}
+                  <img src={tool.icon} alt="" className="w-6 h-6" />
+                </div>
+              </Link>
+            ))}
+          </div>
+    
+          {/* Repositories */}
+          <div className="repo flex flex-col bg-[#080808] gap-2 w-[300px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
+            <p className="text-sm font-medium mb-4">Explore Repositories</p>
+            {data?.repositories.slice(0, 7).map((repo) => (
+              <Link href={`/resources/${repo.id}?type=repo`} key={repo.id}>
+                <div className="text-sm font-light flex flex-col items-start gap-2 border-b pb-1 border-[#343434]">
+                  <h1 className="text-sm font-medium">{repo.name}</h1>
+                  <span className="flex items-center gap-1 text-gray-400">
+                    <p
+                      className="rounded-full h-2 w-2"
+                      style={{
+                        backgroundColor:
+                          repo.language === 'JavaScript'
+                            ? 'yellow'
+                            : repo.language === 'TypeScript'
+                            ? 'aqua'
+                            : repo.language === 'C++'
+                            ? 'blue'
+                            : '#343434',
+                      }}
+                    />
+                    {repo.language || 'none'}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    
      );
 }
  
+type DrawerProps = {
+  drawer: boolean;
+  setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
   
-    export function SideBar(){
+    export const SideBar: React.FC<DrawerProps> = ({ drawer, setDrawer }) => {
 
       const [isClicked, setIsClicked] = useState('')
 
@@ -139,7 +193,8 @@ const Page = () => {
 
       const [showRepo, setShowRepo] = useState<Repo[]>([])
 
-        const HomeFeed = [
+      const HomeFeed = [
+        {text:'Dashboard',link:'/'},
             {text:'Articles',link:'/articles'},
             {text:'Tools',link:'/tools'},
             { text: 'Github Repositories', link: '/github' },
@@ -162,12 +217,22 @@ const Page = () => {
           <>
            <div className="mt-15 space-y-6 flex flex-col ">
             {HomeFeed.map((feed, index) =>
-              <div key={index} className="flex flex-col"
+                <div
+                key={index}
+                className="flex flex-col"
                 onMouseEnter={() => setIsClicked(feed.text)}
                 onMouseLeave={() => setIsClicked('')}
-                onClick={()=>setIsClicked(feed.text)}
+                onClick={() => {
+                  setIsClicked(feed.text);
+                  setDrawer(false);
+                }}
                 >
-                    <Link className={`${isClicked === feed.text ? 'text-white':'text-gray-300'} transition-all duration-300`} href={`/resources${feed.link}`}>{feed.text}</Link>
+                <Link
+                  className={`${isClicked === feed.text ? 'text-white' : 'text-gray-300'} transition-all duration-300`}
+                  href={`/resources${feed.link}`}
+                >
+                  {feed.text}
+                </Link>
                 </div>)}
             </div>
             <hr className="w-full bg-gray-400/50 px-2" />
