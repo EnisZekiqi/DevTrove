@@ -35,29 +35,39 @@ const Page = () => {
   if (isLoading) {
     return (
       <div className="h-full w-screen flex items-center justify-center">
-        <div className="h-full flex flex-col items-start mt-[15%] justify-start w-full ml-[25%]">
+      <div
+        className={`h-full w-full flex ${isDesktop ? 'flex-row' : 'flex-col'} mt-[55%] sm:mt-[40%] md:mt-[30%] lg:mt-[15%] items-start justify-start`}
+      >
+        {/* Left Section - Articles */}
+        <div className={`flex flex-col items-start mt-[0%] justify-start w-full ${isDesktop ? 'ml-[25%]' : 'ml-[5%]'}`}>
           <h1 className="text-start text-xl font-medium">Articles</h1>
           <div className="flex flex-col items-start gap-4 mt-8">
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[600px] p-1.5 rounded-md" />
-            ))}
+          {[...Array(8)].map((_, i) => (
+                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />
+                  ))}
           </div>
         </div>
-        <div className="flex flex-col items-start pr-6 mt-[15%] gap-10">
-          <div className="flex flex-col gap-2 border border-[#343434] rounded-xl p-2 w-[300px] h-[300px]">
+    
+        {/* Right Section - Tools & Repos */}
+        <div className={`flex  flex-col items-start ${isDesktop ? 'pr-6 mt-[5%]' : 'mt-10 ml-[5%]'} gap-10`}>
+          {/* Tools */}
+          <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[300px] h-[300px]">
             <p className="text-sm font-medium mb-4">Latest Tools</p>
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-[#1a1a1a] h-4 w-40 rounded-sm" />
-            ))}
+            {[...Array(6)].map((_, i) => (
+                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />
+                  ))}
           </div>
-          <div className="flex flex-col bg-[#080808] gap-4 w-[300px] h-[330px] rounded-xl p-2 border border-[#343434]">
+    
+          {/* Repositories */}
+          <div className="repo flex flex-col bg-[#080808] gap-2 w-[300px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
             <p className="text-sm font-medium mb-4">Explore Repositories</p>
-            {[...Array(7)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-[#1a1a1a] h-8 w-52 rounded-sm" />
-            ))}
+            {[...Array(8)].map((_, i) => (
+                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />
+                  ))}
           </div>
         </div>
       </div>
+    </div>
     );
   }
 
