@@ -1,4 +1,7 @@
 // app/resources/[id]/page.tsx
+export const dynamic = "force-dynamic";
+
+
 import { fetchArticles,fetchRepositories,fetchArticlesMultiPage } from "@/app/lib/api";
 import { notFound } from "next/navigation";
 import { IoMdStar,IoMdStarOutline,IoMdCalendar,IoMdHeart   } from "react-icons/io";
@@ -8,10 +11,7 @@ import SaveRepoButton from "@/app/components/SaveRepoButton";
 import { fetchArticleById, fetchRepoById } from "@/app/lib/api";
 import tools from '@/app/data/tools.json'
 import Image from "next/image";
-type Props = {
-  params: { id: string };
-  searchParams: { type?: string };
-};
+
 
 
 export default async function ResourceDetail({ params, searchParams }: Props) {
