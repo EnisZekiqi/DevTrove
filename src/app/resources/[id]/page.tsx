@@ -16,6 +16,8 @@ type Props = {
 
 export default async function ResourceDetail({ params, searchParams }: Props) {
   const id = Number(params.id);
+  if (isNaN(id)) return notFound();
+
   const type = searchParams.type;
 
   if (!type || !["article", "repo","tools"].includes(type)) {
@@ -103,9 +105,11 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
     );
   }
   // Instead of checking type, check if the id exists in tools
-  const tool = tools.find((tool) => Number(tool.id) === id);
 
-  if (tool) {
+  if (type === "tools") {
+    const tool = tools.find((tool) => Number(tool.id) === id);
+    if (!tool) return notFound();
+  
     return (
       <div className="h-full w-full flex flex-col mt-[28%] sm:mt-[8%] ml-7 sm:ml-[25%] max-w-[700px]">
         <div className="flex items-center gap-3 mb-4">
