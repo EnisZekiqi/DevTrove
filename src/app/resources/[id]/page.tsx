@@ -7,7 +7,7 @@ import { MdOutlineBookmarkBorder, } from "react-icons/md";
 import SaveRepoButton from "@/app/components/SaveRepoButton";
 import { fetchArticleById, fetchRepoById } from "@/app/lib/api";
 import tools from '@/app/data/tools.json'
-
+import Image from "next/image";
 type Props = {
   params: { id: string };
   searchParams: { type?: string };
@@ -34,7 +34,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
     return (
         <div className="p-10 h-full w-full mt-[15%] sm:mt-[5%] -ml-2 sm:ml-[25%]">
             <div className="flex items-center gap-4 mb-4">
-            <img src={article.user.profile_image} alt={article.user.name} className="w-10 h-10 rounded-full" />
+            <Image src={article.user.profile_image} alt={article.user.name} className="w-10 h-10 rounded-full" />
             <p className="text-sm">{article.user.name}</p>
             </div>
             
@@ -55,7 +55,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
           
   
           {article.cover_image ? (
-            <img src={article.cover_image} alt="Cover" className="mt-4 object-contain w-[700px]" />
+            <Image src={article.cover_image} alt="Cover" className="mt-4 object-contain w-[700px]" />
             ) : (
             <div className="text-sm text-gray-400 mt-4">No cover image available.</div>
             )}
@@ -82,7 +82,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
       <div className=" h-full w-full flex flex-col mt-[25%] sm:mt-[8%] ml-7 sm:ml-[25%]">
         <div className="flex justify-between items-center w-[90%] sm:w-[50%]">
         <div className="flex items-center gap-3">
-        <img className="w-10 h-10 border border-[#343434] rounded-full" src={repo.owner.avatar_url} alt="" />
+        <Image className="w-10 h-10 border border-[#343434] rounded-full" src={repo.owner.avatar_url} alt="" />
           <h1 className="text-2xl font-bold">{repo.name}</h1>
         </div>
           <SaveRepoButton repo={repo}/>
