@@ -8,6 +8,16 @@ import { motion,AnimatePresence } from "motion/react";
 import { MdFilterAlt } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 
+type FilterOption = 'newest' | 'likes' | 'oldest';
+type ArticleTag =
+  | 'javascript'
+  | 'react'
+  | 'typescript'
+  | 'programming'
+  | 'webdev'
+  | 'gamedev'
+  | 'discuss';
+
 const Articles = () => {
 
      const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
@@ -29,98 +39,28 @@ const Articles = () => {
       const isDesktop = windowWidth >= 1124; 
 
     
-    const [filterResponsive,setFilterResponsive]=useState(false)
+    const [filterResponsive, setFilterResponsive] = useState(false)
     
-    const [filter, setFilter] = useState<'newest' | 'likes' | 'oldest'>('newest');
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [filter, setFilter] = useState<FilterOption>('newest');
 
-    const { data, isLoading, error } = useQuery<FullArticle[]>({
-        queryKey: ['articles', filter,selectedTags],
-        queryFn: () => fetchArticlesMultiPage(3, filter,selectedTags),
+    const [selectedTag, setSelectedTag] = useState<ArticleTag | ''>('');
+
+    const { data, isLoading, error } =  useQuery<FullArticle[]>({
+        queryKey: ['articles', filter, selectedTag],
+        queryFn: () => fetchArticlesMultiPage(3, filter, selectedTag ? [selectedTag] : undefined),
         staleTime: 1000 * 60 * 5,
       });
+    
       
       
 
     if (isLoading) {
         return (
-            <div className="h-full w-screen flex items-center justify-center">
-              <div className={`h-full flex ${isDesktop ? 'flex-row' : 'flex-col'}  gap-4 mt-[6%] -ml-[5%] items-start justify-center z-[500]`}>
-            <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'All'}</h1>
-
-            <div className="mt-6 flex flex-col gap-4">
-                {[...Array(8)].map((_, i) => (
-                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />
-                  ))}
-                </div> 
-                <div className="empty opacity-0 h-[100px]"></div>
-
-            </div>
-
-            <div className="hidden sm:flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
-                            <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
-                <p className="text-sm font-medium mb-4">Sort by</p>
-                <label className="flex gap-2 items-center">
-                    <input
-                    type="radio"
-                    name="filter"
-                    value="newest"
-                    checked={filter === 'newest'}
-                    className="input"        
-                    onChange={(e) => setFilter(e.target.value as any)}
-                    />
-                    Newest
-                    </label>
-                    
-                <label className="flex gap-2 items-center">
-                    <input
-                    type="radio"
-                    name="filter"
-                    value="likes"
-                    checked={filter === 'likes'}
-                    onChange={(e) => setFilter(e.target.value as any)}
-                    />
-                    Most Liked
-                </label>
-                <label className="flex gap-2 items-center">
-                    <input
-                    type="radio"
-                    name="filter"
-                    value="oldest"
-                    checked={filter === 'oldest'}
-                    onChange={(e) => setFilter(e.target.value as any)}
-                    />
-                    Oldest
-                </label>
-                </div>
-                <div className="flex flex-col gap-2 border border-[#343434] rounded-xl p-2 w-[200px]">
-                    <p className="text-sm font-medium mb-2">Filter by Tag</p>
-                    <select
-                    className="bg-[#121212] text-white border focus:outline-0 border-[#343434] rounded p-1"
-                    onChange={(e) =>
-                        setSelectedTags(e.target.value ? [e.target.value] : [])
-                    }
-                    defaultValue=""
-                    >
-                    <option value="">All</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="react">React</option>
-                        <option value="typescript">TypeScript</option>
-                        <option value="programming">programming</option>
-                        <option value="webdev">webdev</option>
-                        <option value="gamedev">gamedev</option>
-                        <option value="discuss">discuss</option>
-
-                    </select>
-                </div>
-            </div>
-            </div>
+         <LoadingArticle />
           );
     }
 
-    if (error) {
-        return(<div>Error</div>)
-    }
+    if (error) return <div>Something went wrong. Please try again later.</div>
 
     
 
@@ -130,7 +70,7 @@ const Articles = () => {
             animate={{opacity:1,transition:{duration:0.7}}}
             className={`flex h-full w-screen mt-[20%] sm:mt-[15%] md:mt-[10%] lg:mt-[5%] ${isDesktop ? 'justify-center' : 'justify-start pl-6 sm:pl-10'} `}>
             <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[0%] items-start justify-center z-[500]">
-            <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTags.length > 0 ? selectedTags.join(', ') : 'All'}</h1>
+            <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTag.length > 0 ? selectedTag : 'All'}</h1>
 
                 <div className="mt-6 flex flex-col gap-4">
                 {data?.map((article) => (
@@ -138,7 +78,7 @@ const Articles = () => {
                 href={`/resources/${article.id}?type=article`}
                 key={article.id}
             >
-                <div className="bg-[#080808] flex flex-col items-start gap-1 w-[300px] md:w-[380px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+                <div className="bg-[#080808] text-gray-300/90  flex flex-col items-start gap-1 w-[300px] md:w-[380px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
                 <div className="flex items-center gap-1.5">
                     <div className="flex items-center gap-2 mb-0.5">
                     <img
@@ -146,7 +86,7 @@ const Articles = () => {
                         alt={article.user.name}
                         className="w-6 h-6 rounded-full"
                     />
-                    <p className="text-sm font-light text-gray-300">{article.user.name}</p>
+                    <p className="text-sm font-light text-white">{article.user.name}</p>
                     </div>
                 </div>
                 {article.title}
@@ -171,48 +111,48 @@ const Articles = () => {
                     onClick={()=>setFilterResponsive(false)}
                     className="fixed top-0 bottom-0 left-0 right-0 z-[1100] bg-black/70 w-full h-full"></motion.div>
                  <motion.div
-                  initial={{opacity:0}}
-                  animate={{ opacity: 1, transition: { duration: 0.3,delay:0.1 } }}
-                  exit={{opacity:0,transition:{duration:0.3}}}
-                            className="sm:hidden w-full h-fit fixed left-1 top-24 z-[1200] mb-4 p-3 rounded-xl border border-[#343434] bg-[#121212]">
+                  initial={{ y: '-50%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1, transition: { duration: 0.3, delay: 0.1 } }}
+                  exit={{ y: '-50%', opacity: 0, transition: { duration: 0.3 } }}
+                            className="sm:hidden fixed top-[15%] left-1/2 transform -translate-x-1/2 bg-[#0e0e0e] border border-[#343434] rounded-xl p-5 w-[90%] max-w-[350px] z-[1100]">
             <div className="flex items-start justify-between">
             <p className="text-sm font-medium mb-4">Sort by</p>
-            <button onClick={()=>setFilterResponsive(false)}><IoMdClose/></button>
+            <button onClick={()=>setFilterResponsive(false)}><IoMdClose size={22}/></button>
             </div>
-                        <label className="flex gap-2 items-center mb-2">
+                        <label className="flex gap-2 items-center mb-2 text-gray-300/90">
             <input
                 type="radio"
                 name="mobile-filter"
                 value="newest"
                 checked={filter === 'newest'}
                 onChange={(e) => {
-                    setFilter(e.target.value as any);
+                    setFilter(e.target.value as FilterOption);
                     setFilterResponsive(false);
                 }}
             />
             Newest
         </label>
-        <label className="flex gap-2 items-center mb-2">
+        <label className="flex gap-2 items-center mb-2 text-gray-300/90">
             <input
                 type="radio"
                 name="mobile-filter"
                 value="likes"
                 checked={filter === 'likes'}
                 onChange={(e) => {
-                    setFilter(e.target.value as any);
+                    setFilter(e.target.value as FilterOption);
                     setFilterResponsive(false);
                 }}
             />
             Most Liked
         </label>
-        <label className="flex gap-2 items-center mb-2">
+        <label className="flex gap-2 items-center mb-2 text-gray-300/90">
             <input
                 type="radio"
                 name="mobile-filter"
                 value="oldest"
                 checked={filter === 'oldest'}
                 onChange={(e) => {
-                    setFilter(e.target.value as any);
+                    setFilter(e.target.value as FilterOption);
                     setFilterResponsive(false);
                 }}
             />
@@ -222,7 +162,7 @@ const Articles = () => {
         <select
             className="bg-[#121212] text-white border border-[#343434] rounded p-1 w-full"
             onChange={(e) => {
-            setSelectedTags(e.target.value ? [e.target.value] : []) 
+                setSelectedTag(e.target.value as ArticleTag)
                 setFilterResponsive(false)
             }}
             defaultValue=""
@@ -243,7 +183,7 @@ const Articles = () => {
 
             
             <div className="hidden sm:flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
-                            <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
+                <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
                 <p className="text-sm font-medium mb-4">Sort by</p>
                 <label className="flex gap-2 items-center">
                     <input
@@ -282,9 +222,8 @@ const Articles = () => {
                     <p className="text-sm font-medium mb-2">Filter by Tag</p>
                     <select
                     className="bg-[#121212] text-white border focus:outline-0 border-[#343434] rounded p-1"
-                    onChange={(e) =>
-                        setSelectedTags(e.target.value ? [e.target.value] : [])
-                    }
+                    onChange={(e) => setSelectedTag(e.target.value as ArticleTag)}
+
                     defaultValue=""
                     >
                     <option value="">All</option>
@@ -303,4 +242,51 @@ const Articles = () => {
      );
 }
  
-export default Articles;
+
+    function LoadingArticle({}) {
+      return (<div className="h-full w-screen flex items-center justify-center">
+              <div className={`h-full flex flex-col lg:flex-row gap-4 mt-[6%] -ml-[5%] items-start justify-center z-[500]`}>
+            <h1 className="text-start text-xl font-medium">Newest / All</h1>
+
+            <div className="mt-6 flex flex-col gap-4">
+                {[...Array(8)].map((_, i) => <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />)}
+                </div> 
+                <div className="empty opacity-0 h-[100px]"></div>
+
+            </div>
+
+            <div className="hidden sm:flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
+                            <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
+                <p className="text-sm font-medium mb-4">Sort by</p>
+                <label className="flex gap-2 items-center">
+                    <input type="radio" name="filter" value="newest"  />
+                    Newest
+                    </label>
+                    
+                <label className="flex gap-2 items-center">
+                    <input type="radio" name="filter" value="likes"  />
+                    Most Liked
+                </label>
+                <label className="flex gap-2 items-center">
+                    <input type="radio" name="filter" value="oldest" />
+                    Oldest
+                </label>
+                </div>
+                <div className="flex flex-col gap-2 border border-[#343434] rounded-xl p-2 w-[200px]">
+                    <p className="text-sm font-medium mb-2">Filter by Tag</p>
+                    <select className="bg-[#121212] text-white border focus:outline-0 border-[#343434] rounded p-1" defaultValue="">
+                    <option value="">All</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="react">React</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="programming">programming</option>
+                        <option value="webdev">webdev</option>
+                        <option value="gamedev">gamedev</option>
+                        <option value="discuss">discuss</option>
+
+                    </select>
+                </div>
+            </div>
+            </div>);
+    }
+  export default Articles;

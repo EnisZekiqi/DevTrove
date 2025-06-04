@@ -106,8 +106,19 @@ const [drawer,setDrawer]=useState(false)
           )}
           </div>
         <div className="flex items-center gap-4">
-          {!isHome && <> 
-          <input type="text"  value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className='focus:outline-0 rounded-md p-0.5 bg-transparent border border-[#343434]' /></>}
+            {!isHome && (
+            <div className="relative flex items-center">
+              <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="focus:outline-0 rounded-md p-0.5 bg-transparent border border-[#343434] pr-7"
+              />
+              <span className="absolute right-2 text-gray-400 pointer-events-none">
+              <IoMdSearch size={18} />
+              </span>
+            </div>
+            )}
         <Link href={isResources ? '/resources':(isHome ? '/':'')}> <button className={`rounded-md ${isHome ? 'p-2.5 text-md font-semibold':'p-1 text-sm font-medium'}  border cursor-pointer hover:bg-[#0251EF] border-[#0251EF] transition duration-300`}>{isHome ? <p>Let's Start</p>: <IoMdArrowBack size={22}/>}</button></Link>
           {searchQuery.trim() !== '' && 
           <AnimatePresence mode="wait">

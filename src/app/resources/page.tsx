@@ -9,23 +9,18 @@ import { queryClient } from "../lib/queryClient";
 import { IoMdRemove } from "react-icons/io";
 
 const Page = () => {
-  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+  const [windowWidth, setWindowWidth] = useState(0);
 
-    // Listen to window resize
-    window.addEventListener('resize', handleResize);
+useEffect(() => {
+  const handleResize = () => setWindowWidth(window.innerWidth);
+  handleResize(); // set initial width
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
-    // Set initial width
-    handleResize();
-
-    // Cleanup
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const isDesktop = windowWidth >= 1124; 
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['resources','all'],
     queryFn: fetchResources,
@@ -79,7 +74,6 @@ const Page = () => {
 
   
 
-  const isDesktopV2 = windowWidth >= 1114
 
     return ( 
       <div className="h-full w-screen flex items-center justify-center">

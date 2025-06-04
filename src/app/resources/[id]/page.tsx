@@ -30,14 +30,14 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
     
 
     return (
-        <div className="p-10 h-full w-full mt-[5%] ml-[25%]">
+        <div className="p-10 h-full w-full mt-[15%] sm:mt-[5%] -ml-2 sm:ml-[25%]">
             <div className="flex items-center gap-4 mb-4">
             <img src={article.user.profile_image} alt={article.user.name} className="w-10 h-10 rounded-full" />
             <p className="text-sm">{article.user.name}</p>
             </div>
             
-          <h1 className="text-2xl font-bold">{article.title}</h1>
-          <p className="mt-4 text-sm text-gray-400 w-2/3">{article.description}</p>
+          <h1 className="text-xl sm:text-2xl font-bold">{article.title}</h1>
+          <p className="mt-4 text-sm text-gray-400 w-full sm:w-2/3">{article.description}</p>
   
           <div className="flex gap-3 mt-2">
 {typeof article.tag_list === 'string' && article.tag_list
@@ -77,16 +77,16 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
       
    
     return (
-      <div className=" h-full w-full flex flex-col  mt-[8%] ml-[25%]">
-        <div className="flex justify-between items-center w-[50%]">
-        <div className="flex items-center gap-1">
-        <img className="w-10 h-10 border border-[#343434]" src={repo.owner.avatar_url} alt="" />
+      <div className=" h-full w-full flex flex-col mt-[25%] sm:mt-[8%] ml-7 sm:ml-[25%]">
+        <div className="flex justify-between items-center w-[90%] sm:w-[50%]">
+        <div className="flex items-center gap-3">
+        <img className="w-10 h-10 border border-[#343434] rounded-full" src={repo.owner.avatar_url} alt="" />
           <h1 className="text-2xl font-bold">{repo.name}</h1>
         </div>
           <SaveRepoButton repo={repo}/>
         </div>
-        <p className="mt-4 text-sm text-gray-300 w-[55%]">{repo.description}</p>
-        <div className="flex flex-wrap w-2/4 items-center gap-1.5 mt-4">
+        <p className="mt-4 text-sm text-gray-300 w-full sm:w-[55%]">{repo.description}</p>
+        <div className="flex flex-wrap w-[90%] sm:w-2/4 items-center gap-1.5 mt-4">
         {repo.topics?.map((tag: string) => (
               <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">{tag}</span>
             ))}     
@@ -98,7 +98,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
         <p className="mt-2 flex items-center gap-1">License :<span className="text-gray-400">{repo.license?.name}</span></p>
         
         <p className="mt-2 flex items-center gap-1">Owner Repository: <span className="text-gray-400">{repo.owner.login}</span></p>
-        <a href={repo.html_url} target="_blank" className="text-[#0251EF] underline mt-4 block">View on GitHub</a>
+        <a href={repo.html_url} target="_blank" className="text-[#0251EF] underline mt-4 block w-fit">View on GitHub</a>
       </div>
     );
   }
@@ -107,7 +107,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
 
   if (tool) {
     return (
-      <div className="h-full w-full flex flex-col mt-[8%] ml-[25%] max-w-[700px]">
+      <div className="h-full w-full flex flex-col mt-[28%] sm:mt-[8%] ml-7 sm:ml-[25%] max-w-[700px]">
         <div className="flex items-center gap-3 mb-4">
           <img src={tool.icon} alt={tool.name} className="w-10 h-10" />
           <h1 className="text-2xl font-bold">{tool.name}</h1>
