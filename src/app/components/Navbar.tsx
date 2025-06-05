@@ -9,8 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchArticlesMultiPage,fetchRepositories } from '../lib/api';
 import { QueryClient } from '@tanstack/react-query';
 import tools from '@/app/data/tools.json'
-import { SideBar } from '../resources/page';
-
+import { SideBar } from './SideBar';
 
 
 export default function Navbar() {

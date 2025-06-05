@@ -11,16 +11,15 @@ import SaveRepoButton from "@/app/components/SaveRepoButton";
 import { fetchArticleById, fetchRepoById } from "@/app/lib/api";
 import tools from '@/app/data/tools.json'
 import Image from "next/image";
+import { Metadata } from "next";
 
-
-
-type Props = {
+export default async function ResourceDetail({
+  params,
+  searchParams,
+}: {
   params: { id: string };
   searchParams?: { type?: string };
-};
-
-export default async function ResourceDetail(props: Props) {
-  const { params, searchParams } = props; // ✅ Destructure INSIDE the function
+}) {
   const id = Number(params.id);
   if (isNaN(id)) return notFound();
 
