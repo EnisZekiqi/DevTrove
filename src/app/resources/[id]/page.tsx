@@ -13,13 +13,12 @@ import tools from '@/app/data/tools.json'
 import Image from "next/image";
 import { Metadata } from "next";
 
-export default async function ResourceDetail({
-  params,
-  searchParams,
-}: {
+type PageProps = {
   params: { id: string };
   searchParams?: { type?: string };
-}) {
+};
+
+export default async function ResourceDetail({ params, searchParams }: PageProps) {
   const id = Number(params.id);
   if (isNaN(id)) return notFound();
 
