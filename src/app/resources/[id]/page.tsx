@@ -14,15 +14,23 @@ import Image from "next/image";
 
 
 
-export default async function ResourceDetail({ params, searchParams }: Props) {
+type Props = {
+  params: { id: string };
+  searchParams?: { type?: string };
+};
+
+export default async function ResourceDetail(props: Props) {
+  const { params, searchParams } = props; // ✅ Destructure INSIDE the function
   const id = Number(params.id);
   if (isNaN(id)) return notFound();
 
-  const type = searchParams.type;
+  const type = searchParams?.type;
 
-  if (!type || !["article", "repo","tools"].includes(type)) {
-    return notFound(); // 🧼 fail-safe
+  if (!type || !["article", "repo", "tools"].includes(type)) {
+    return notFound();
   }
+
+  
 
   if (type === "article") {
     const article = await fetchArticleById(id);
@@ -34,7 +42,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
     return (
         <div className="p-10 h-full w-full mt-[15%] sm:mt-[5%] -ml-2 sm:ml-[25%]">
             <div className="flex items-center gap-4 mb-4">
-            <Image src={article.user.profile_image} alt={article.user.name} className="w-10 h-10 rounded-full" />
+            <img src={article.user.profile_image} alt={article.user.name} className="w-10 h-10 rounded-full" />
             <p className="text-sm">{article.user.name}</p>
             </div>
             
@@ -55,7 +63,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
           
   
           {article.cover_image ? (
-            <Image src={article.cover_image} alt="Cover" className="mt-4 object-contain w-[700px]" />
+            <img src={article.cover_image} alt="Cover" className="mt-4 object-contain w-[700px]" />
             ) : (
             <div className="text-sm text-gray-400 mt-4">No cover image available.</div>
             )}
@@ -82,7 +90,7 @@ export default async function ResourceDetail({ params, searchParams }: Props) {
       <div className=" h-full w-full flex flex-col mt-[25%] sm:mt-[8%] ml-7 sm:ml-[25%]">
         <div className="flex justify-between items-center w-[90%] sm:w-[50%]">
         <div className="flex items-center gap-3">
-        <Image className="w-10 h-10 border border-[#343434] rounded-full" src={repo.owner.avatar_url} alt="" />
+        <img className="w-10 h-10 border border-[#343434] rounded-full" src={repo.owner.avatar_url} alt="" />
           <h1 className="text-2xl font-bold">{repo.name}</h1>
         </div>
           <SaveRepoButton repo={repo}/>

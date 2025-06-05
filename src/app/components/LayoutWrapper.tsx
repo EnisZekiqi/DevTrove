@@ -3,8 +3,8 @@
 import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { SideBar } from '../resources/page';
-import { useEffect,useState } from 'react';
+import { SideBar } from './SideBar';
+import { useEffect, useState } from 'react';
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHome = pathname === '/';
