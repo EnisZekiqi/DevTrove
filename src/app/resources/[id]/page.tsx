@@ -14,12 +14,12 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 type PageProps = {
-  params: Promise<{ id: string }>;
+  params: { id: string }; // ✅ plain object, no Promise
   searchParams?: { type?: string };
 };
 
 export default async function ResourceDetail({ params, searchParams }: PageProps) {
-  const {id} = await params;
+  const {id} = params;
   const numericId = Number(id);
   if (isNaN(numericId)) return notFound();
 
