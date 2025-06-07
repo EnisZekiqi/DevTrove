@@ -14,20 +14,21 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 type PageProps = {
-  params: { id: string }; // ✅ plain object, no Promise
-  searchParams?: { type?: string };
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ type?: string }>;
 };
 
+
 export default async function ResourceDetail({ params, searchParams }: PageProps) {
-  const {id} = params;
+  const { id } = await params;
   const numericId = Number(id);
   if (isNaN(numericId)) return notFound();
 
-  const type = searchParams?.type;
-
+  const { type } = (await searchParams) ?? {};
   if (!type || !["article", "repo", "tools"].includes(type)) {
     return notFound();
   }
+
 
   
   if (type === "article") {
