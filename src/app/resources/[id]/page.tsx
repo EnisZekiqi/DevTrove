@@ -14,13 +14,14 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 type PageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   searchParams?: { type?: string };
 };
 
 export default async function ResourceDetail({ params, searchParams }: PageProps) {
-  const id = Number(params.id);
-  if (isNaN(id)) return notFound();
+  const {id} = await params;
+  const numericId = Number(id);
+  if (isNaN(numericId)) return notFound();
 
   const type = searchParams?.type;
 
@@ -29,9 +30,8 @@ export default async function ResourceDetail({ params, searchParams }: PageProps
   }
 
   
-
   if (type === "article") {
-    const article = await fetchArticleById(id);
+    const article = await fetchArticleById(numericId);
 
     if (!type || !["article", "repo"].includes(type)) return notFound();
     if (!article) return notFound();
@@ -70,10 +70,10 @@ export default async function ResourceDetail({ params, searchParams }: PageProps
         </div>
       );
   }
-
   if (type === "repo") {
-    const repo = await fetchRepoById(id); // returns Repo
+    const repo = await fetchRepoById(numericId); // returns Repo
 
+    if (!repo) return notFound();
     if (!repo) return notFound();
 
     
@@ -111,9 +111,8 @@ export default async function ResourceDetail({ params, searchParams }: PageProps
     );
   }
   // Instead of checking type, check if the id exists in tools
-
   if (type === "tools") {
-    const tool = tools.find((tool) => Number(tool.id) === id);
+    const tool = tools.find((tool) => Number(tool.id) === numericId);
     if (!tool) return notFound();
   
     return (
