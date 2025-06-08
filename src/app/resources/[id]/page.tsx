@@ -1,34 +1,29 @@
-import { fetchArticles, fetchRepositories, fetchArticleById, fetchRepoById } from "@/app/lib/api";
+import { fetchArticleById, fetchRepoById } from "@/app/lib/api";
 import { notFound } from "next/navigation";
 import { IoMdStarOutline, IoMdCalendar, IoMdHeart } from "react-icons/io";
 import { AiOutlineFork } from "react-icons/ai";
 import SaveRepoButton from "@/app/components/SaveRepoButton";
 import tools from '@/app/data/tools.json';
-import { Metadata } from "next";
-import type { ReactElement } from "react";
-
-function resolveMaybePromise<T>(value: T | Promise<T>): Promise<T> {
-  return Promise.resolve(value);
-}
 
 export default async function ResourceDetail({
   params,
   searchParams,
 }: {
-  params: { id: string };
-  searchParams?: { type?: string };
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ type?: string }>;
 }) {
-  const resolvedParams = await resolveMaybePromise(params);
-  const resolvedSearchParams = await resolveMaybePromise(searchParams ?? {});
+  const resolvedParams = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : {};
 
   const id = resolvedParams.id;
   const type = resolvedSearchParams.type;
-  console.log("💡 params:", params);
-  console.log("💡 searchParams:", searchParams);
 
   if (!id || !type) return notFound();
 
   const numericId = Number(id);
+
+  console.log("💡 params:", params);
+  console.log("💡 searchParams:", searchParams);
 
   if (type === "article") {
     const article = await fetchArticleById(numericId);
