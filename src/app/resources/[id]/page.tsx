@@ -1,5 +1,4 @@
 // app/resources/[id]/page.tsx
-export const dynamic = "force-dynamic";
 
 
 import { fetchArticles,fetchRepositories,fetchArticlesMultiPage } from "@/app/lib/api";
