@@ -5,8 +5,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  experimental: {
-  },
 };
 
 export default nextConfig;
