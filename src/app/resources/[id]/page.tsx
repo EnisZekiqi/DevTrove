@@ -13,8 +13,8 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 type PageProps = {
-  params: Promise<{ id: string }>;
-  searchParams?: Promise<{ type?: string }>;
+  params: { id: string };
+  searchParams?: { type?: string };
 };
 
 
