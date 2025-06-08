@@ -7,19 +7,22 @@ import tools from '@/app/data/tools.json';
 import { Metadata } from "next";
 import type { ReactElement } from "react";
 
+function resolveMaybePromise<T>(value: T | Promise<T>): Promise<T> {
+  return Promise.resolve(value);
+}
+
 export default async function ResourceDetail({
   params,
   searchParams,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
-  searchParams?: { type?: string } | Promise<{ type?: string }>;
+  params: { id: string };
+  searchParams?: { type?: string };
 }) {
-  // Await and assert types for compatibility
-  const resolvedParams = await params as { id: string };
-  const resolvedSearchParams = await searchParams as { type?: string } | undefined;
+  const resolvedParams = await resolveMaybePromise(params);
+  const resolvedSearchParams = await resolveMaybePromise(searchParams ?? {});
 
   const id = resolvedParams.id;
-  const type = resolvedSearchParams?.type;
+  const type = resolvedSearchParams.type;
   console.log("💡 params:", params);
   console.log("💡 searchParams:", searchParams);
 
