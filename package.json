@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next-on-pages build",
     "analyze": "cross-env ANALYZE=true next build",
+    "deploy": "npx wrangler pages deploy .vercel/output --project-name=devtrove",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.13.12",
     "@tanstack/react-query": "^5.76.1",
     "motion": "^12.11.3",
     "next": "15.3.2",
