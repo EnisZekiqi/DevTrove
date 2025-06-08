@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next-on-pages build",
+    "build": "next build",
     "analyze": "cross-env ANALYZE=true next build",
-    "deploy": "npx wrangler pages deploy .vercel/output --project-name=devtrove",
+    "deploy": "npx wrangler pages deploy . --project-name=devtrove",
     "start": "next start",
     "lint": "next lint"
   },
