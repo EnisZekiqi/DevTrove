@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { fetchArticleById, fetchRepoById } from "@/app/lib/api";
 import { notFound } from "next/navigation";
 import { IoMdStarOutline, IoMdCalendar, IoMdHeart } from "react-icons/io";
