@@ -78,7 +78,7 @@ const Articles = () => {
                 href={`/resources/${article.id}?type=article`}
                 key={article.id}
             >
-                <div className="bg-[#080808] text-gray-300/90  flex flex-col items-start gap-1 w-[300px] md:w-[380px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+                <div className="bg-[#080808] text-gray-300/90  flex flex-col items-start gap-1 w-[320px] md:w-[380px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
                 <div className="flex items-center gap-1.5">
                     <div className="flex items-center gap-2 mb-0.5">
                     <img
@@ -249,7 +249,7 @@ const Articles = () => {
             <h1 className="text-start text-xl font-medium">Newest / All</h1>
 
             <div className="mt-6 flex flex-col gap-4">
-                {[...Array(8)].map((_, i) => <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />)}
+                {[...Array(8)].map((_, i) => <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[320px] lg:w-[600px] p-1.5 rounded-md" />)}
                 </div> 
                 <div className="empty opacity-0 h-[100px]"></div>
 

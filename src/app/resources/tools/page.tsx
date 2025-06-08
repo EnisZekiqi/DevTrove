@@ -46,7 +46,7 @@ const Tools = () => {
         </div>
                 {filter !== 'All' ?
 filteredTools.map((tool) => (
-  <Link href={`/resources/${tool.id}?type=tools`} key={tool.id} className="bg-[#080808]  flex flex-col items-start gap-1 w-[300px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+  <Link href={`/resources/${tool.id}?type=tools`} key={tool.id} className="bg-[#080808]  flex flex-col items-start gap-1 w-[320px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
     <div className="flex items-center gap-1 mb-0.5">
       <img src={tool.icon} alt={tool.name} className="w-6 h-6 rounded-full" />
       <p className="text-sm font-light text-white">{tool.name}</p>
@@ -56,7 +56,7 @@ filteredTools.map((tool) => (
 ))
                     : supportTools.length > 0 ? 
                         supportTools.map((tool) => (
-<Link href={`/resources/${tool.id}?type=tools`} key={tool.id} className="bg-[#080808] flex flex-col items-start gap-1 w-[300px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+<Link href={`/resources/${tool.id}?type=tools`} key={tool.id} className="bg-[#080808] flex flex-col items-start gap-1 w-[320px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
     <div className="flex items-center gap-1 mb-0.5">
       <img src={tool.icon} alt={tool.name} className="w-6 h-6 rounded-full" />
       <p className="text-sm font-light text-white">{tool.name}</p>

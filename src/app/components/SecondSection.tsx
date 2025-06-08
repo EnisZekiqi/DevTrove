@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from "motion/react";
-
+import Link from "next/link";
 const SecondSection = () => {
 
     const containerVariants = {
@@ -97,12 +97,14 @@ const SecondSection = () => {
     ))}
   </motion.div>
 
-  <motion.button
+            <Link href="/resources">
+            <motion.button
     variants={fadeInUp}
     className="explore mt-6 px-4 sm:px-6 py-2 sm:py-3 border border-white/40 bg-[#0251EF] cursor-pointer scale-100 hover:scale-105 text-white font-semibold rounded-xl transition-all duration-200"
   >
     Explore Features
   </motion.button>
+            </Link>
 </motion.div>
 
             </div>

@@ -36,10 +36,13 @@ const HeroSection = () => {
                         Explore APIs, libraries, templates, and more.
                     </p>
                     <div className="flex items-center justify-center gap-4 mt-8 z-[100]">
-                        <button className="text-md font-semibold bg-white hover:bg-white/60 transition cursor-pointer rounded-md text-[#434343] py-2 px-3">Check the Tools</button>
-                        <Link href='/resources'>
+          <Link href='/resources'>
+          <button className="text-md font-semibold bg-white hover:bg-white/60 transition cursor-pointer rounded-md text-[#434343] py-2 px-3">Check the Tools</button>
+
+          </Link>
+          <a href='#about'>
                             <button className="learnmore text-md font-semibold  text-white rounded-md p-2">Learn More</button>
-                  </Link>
+                  </a>
                   </div>
                     </div>
       {/* Bottom Fade Mask */}

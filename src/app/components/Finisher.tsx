@@ -1,5 +1,6 @@
 'use client';
-
+import Link from "next/link";
+ 
 const Finisher = () => {
   return (
     <section id="explore" className="relative py-30 px-4">
@@ -25,11 +26,13 @@ const Finisher = () => {
           <p className="text-gray-300 max-w-2xl mx-auto text-sm md:text-lg">
             Whether you’re building a side project, prepping for interviews, or launching a startup — DevTrove has you covered.
           </p>
+          <Link href="/resources">
           <button
              className="explore mt-6 px-4 py-2 sm:px-6 sm:py-3 border border-white/40 bg-[#0251EF] cursor-pointer scale-100 hover:scale-105 text-white font-semibold rounded-xl transition-all duration-200"
            >
              Explore Features
          </button>
+          </Link>
         </div>
       </div>
     </section>

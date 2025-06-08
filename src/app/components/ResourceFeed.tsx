@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from "motion/react";
-
+import Link from "next/link";
 const ResourceFeed = () => {
 
     const containerVariants = {
@@ -78,12 +78,14 @@ const ResourceFeed = () => {
                     className="text-gray-400 mt-4 max-w-xl mx-auto">
 DevTrove is your go-to hub for curated tools, libraries, and inspiration to supercharge your development workflow — whether you're building, debugging, or deploying.
 </motion.p>
+          <Link href="/resources">
           <motion.button
     variants={fadeInUp}
     className="explore mt-6 px-4 sm:px-6  py-2 sm:py-3 border border-white/40 bg-[#0251EF] cursor-pointer scale-100 hover:scale-105 text-white font-semibold rounded-xl transition-all duration-200"
   >
     Explore Features
                 </motion.button>
+          </Link>
                 
                 </motion.div>
            </div>

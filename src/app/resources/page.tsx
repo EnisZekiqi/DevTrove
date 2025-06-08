@@ -99,7 +99,7 @@ useEffect(() => {
                 }}
                 key={article.id}
               >
-                <div className="bg-[#080808] flex flex-col items-start gap-1 w-[300px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+                <div className="bg-[#080808] flex flex-col items-start gap-1 w-[320px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
                   <div className="flex items-center gap-1.5">
                     <div className="flex items-center gap-2 mb-0.5">
                       <img
@@ -122,7 +122,7 @@ useEffect(() => {
         {/* Right Section - Tools & Repos */}
         <div className={`flex  flex-col items-start ${isDesktop ? 'pr-6 mt-[5%]' : 'mt-10 ml-[5%]'} gap-10`}>
           {/* Tools */}
-          <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[300px] h-[300px]">
+          <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[320px] h-[300px]">
             <p className="text-sm font-medium mb-4">Latest Tools</p>
             {tools.slice(0, 7).map((tool) => (
               <Link href={`/resources/${tool.id}?type=tools`} key={tool.id}>
@@ -135,7 +135,7 @@ useEffect(() => {
           </div>
     
           {/* Repositories */}
-          <div className="repo flex flex-col bg-[#080808] gap-2 w-[300px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
+          <div className="repo flex flex-col bg-[#080808] gap-2 w-[320px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
             <p className="text-sm font-medium mb-4">Explore Repositories</p>
             {data?.repositories.slice(0, 7).map((repo) => (
               <Link href={`/resources/${repo.id}?type=repo`} key={repo.id}>
