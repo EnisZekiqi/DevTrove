@@ -5,26 +5,31 @@ import { AiOutlineFork } from "react-icons/ai";
 import SaveRepoButton from "@/app/components/SaveRepoButton";
 import tools from '@/app/data/tools.json';
 import { Metadata } from "next";
+import type { ReactElement } from "react";
 
-type PageProps = {
-  params: { id: string };
-  searchParams?: { type?: string };
-};
+export default async function ResourceDetail({
+  params,
+  searchParams,
+}: {
+  params: { id: string } | Promise<{ id: string }>;
+  searchParams?: { type?: string } | Promise<{ type?: string }>;
+}) {
+  // Await and assert types for compatibility
+  const resolvedParams = await params as { id: string };
+  const resolvedSearchParams = await searchParams as { type?: string } | undefined;
 
-const ResourceDetail = async ({ params, searchParams }: PageProps): Promise<React.ReactElement | null> => {
-  {
-    const { id } = params;
-    const numericId = Number(id);
-    if (isNaN(numericId)) return notFound();
+  const id = resolvedParams.id;
+  const type = resolvedSearchParams?.type;
+  console.log("💡 params:", params);
+  console.log("💡 searchParams:", searchParams);
 
-    const { type } = searchParams ?? {};
-    if (!type || !["article", "repo", "tools"].includes(type)) {
-      return notFound();
-    }
+  if (!id || !type) return notFound();
 
-    if (type === "article") {
-      const article = await fetchArticleById(numericId);
-      if (!article) return notFound();
+  const numericId = Number(id);
+
+  if (type === "article") {
+    const article = await fetchArticleById(numericId);
+    if (!article) return notFound();
 
       return (
         <div className="p-10 h-full w-full mt-[15%] sm:mt-[5%] -ml-2 sm:ml-[25%]">
@@ -136,6 +141,5 @@ const ResourceDetail = async ({ params, searchParams }: PageProps): Promise<Reac
   }
 
 
-}
-export default ResourceDetail;
+
 

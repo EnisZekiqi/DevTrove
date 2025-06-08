@@ -93,7 +93,10 @@ useEffect(() => {
                     staleTime: 1000 * 60 * 5,
                   });
                 }}
-                href={`/resources/${article.id}?type=article`}
+                href={{
+                  pathname: `/resources/${article.id}`,
+                  query: { type: "article" },
+                }}
                 key={article.id}
               >
                 <div className="bg-[#080808] flex flex-col items-start gap-1 w-[300px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
