@@ -80,11 +80,11 @@ export const SideBar: React.FC<DrawerProps> = ({ drawer, setDrawer }) => {
       <h1 className="text-md font-medium text-white">Saved Repositories</h1>
       <div className="flex flex-col mt-2 gap-4">
         {showRepo.length === 0 ? (
-          <p>Nothing Saved</p>
+          <p className="text-gray-300 text-center mt-10 text-sm w-full">Nothing Saved</p>
         ) : (
           showRepo.map((repo) => (
             <div
-              className="flex items-center justify-between gap-18"
+              className="flex items-center justify-between gap-24"
               key={repo.id}
             >
               <Link href={repo.html_url}>
