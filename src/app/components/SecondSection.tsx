@@ -54,14 +54,14 @@ const SecondSection = () => {
 >
   <motion.span
     variants={fadeInUp}
-    className="aboutdev border border-white/30 font-light p-1.5 flex items-center rounded-xl"
+    className="aboutdev text-[#ededed] border border-white/30 font-light  p-1.5 flex items-center rounded-xl"
   >
     • About DevTrove
   </motion.span>
 
   <motion.div
     variants={fadeInUp}
-    className="relative text-[32px] md:text-[50px] font-medium leading-tight  text-start w-full"
+    className="relative text-[32px] text-[#ededed] md:text-[50px] font-medium leading-tight  text-start w-full"
   >
     {whytext.split(" ").map((word, index) => (
       <motion.span

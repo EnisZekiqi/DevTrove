@@ -62,7 +62,7 @@ const ResourceFeed = () => {
          whileInView="visible"
          viewport={{once:true}}
                 className="relative z-10 text-center flex flex-col items-center gap-6 px-4">
-          <span className="aboutdev border w-fit border-white/30 font-light p-1.5 flex items-center rounded-xl"
+          <span className="aboutdev border text-[#ededed] w-fit border-white/30 font-light p-1.5 flex items-center rounded-xl"
           >
             • Browse Resources
           </span>
