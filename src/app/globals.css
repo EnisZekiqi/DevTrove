@@ -70,9 +70,8 @@ html {
 }
 .learnmore{
   background: rgba( 255, 255, 255, 0.15 );
-box-shadow: 0 8px 32px 0 rgba(2, 81, 239,0.23);
-backdrop-filter: blur( 4px );
--webkit-backdrop-filter: blur( 4px );
+backdrop-filter: blur( 6px );
+-webkit-backdrop-filter: blur( 6px );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
@@ -132,4 +131,17 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .input[type="checkbox"] {
   display: none;
+}
+.custom-shadow {
+  box-shadow: 0px 5px 10px 0px rgba(2,81,239,0.35);
+}
+.bg-img{
+  border:1px solid rgba(255, 255, 255,0.5);
+  border-radius:5px;
+  backdrop-filter:blur(2px);
+  width:fit-content;
+  height:fit-content;
+  padding: 4px;
+  opacity:0.7;
+ background: linear-gradient(0.016399796234793484deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.5), rgba(153, 153, 153, 0.06));
 }

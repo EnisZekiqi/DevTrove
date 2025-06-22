@@ -249,7 +249,24 @@ const Articles = () => {
             <h1 className="text-start text-xl font-medium">Newest / All</h1>
 
             <div className="mt-6 flex flex-col gap-4">
-                {[...Array(8)].map((_, i) => <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[320px] lg:w-[600px] p-1.5 rounded-md" />)}
+            {[...Array(8)].map((_, i) => (
+  <div
+    key={i}
+    className="animate-pulse bg-[#080808] border border-[#343434] w-[320px] lg:w-[600px] p-1.5 rounded-xl flex flex-col items-start gap-2"
+  >
+    {/* Avatar and title row */}
+    <div className="flex items-center gap-2 mb-0.5">
+      {/* Avatar circle */}
+      <div className="w-6 h-6 bg-[#1c1c1c] rounded-full" />
+      {/* Repo name */}
+      <div className="h-4 bg-[#1c1c1c] rounded-md w-24" />
+    </div>
+
+    {/* Description lines */}
+    <div className="h-3 bg-[#1c1c1c] rounded-md w-full" />
+    <div className="h-3 bg-[#1c1c1c] rounded-md w-[80%]" />
+  </div>
+))}
                 </div> 
                 <div className="empty opacity-0 h-[100px]"></div>
 
