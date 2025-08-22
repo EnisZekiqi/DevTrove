@@ -54,7 +54,7 @@ useEffect(() => {
     <div className="h-3 bg-[#1c1c1c] rounded-md w-full" />
     <div className="h-3 bg-[#1c1c1c] rounded-md w-[80%]" />
   </div>
-))}
+))}                 
           </div>
         </div>
     

@@ -29,6 +29,34 @@ const HeroSection = () => {
     {name:'Framer',icon:<SiFramer/>},
     {name:'Tools',icon:<VscJson/>}
   ]
+
+   const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.2,
+            delayChildren: 0.2,
+          },
+        },
+    };
+    
+    const fadeInUp = {
+        hidden: {
+          opacity: 0,
+          y: 10,
+          filter: "blur(4px)",
+        },
+        visible: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: {
+            duration: 0.5,
+            ease: "easeOut",
+          },
+        },
+      };
   
   return (
     <section className="relative h-screen w-full overflow-hidden flex flex-col md:flex-row items-center  justify-center md:justify-start  bg-black">
@@ -49,18 +77,31 @@ const HeroSection = () => {
       </video>
 
       {/* Overlay Content */}
-      <div className="relative z-10 text-start flex flex-col items-start justify-center md:justify-start text-white pl-5 md:pl-10 mt-20 md:mt-0 max-w-4xl">
-      <div className="rounded-lg flex items-center gap-2 z-100 mb-6 bg-[#9999991f] p-1.5 w-fit border border-[#99999927]">
+      <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+        className="relative z-10 text-start flex flex-col items-start justify-center md:justify-start text-white pl-5 md:pl-10 mt-20 md:mt-0 max-w-4xl">
+        <motion.div
+      variants={fadeInUp}
+          className="rounded-lg flex items-center gap-2 z-100 mb-6 bg-[#9999991f] p-1.5 w-fit border border-[#99999927]">
                         <span className="rounded bg-[#0251EF] text-white p-1 text-sm">NEW</span>
                         <p className="text-sm font-light">No. 1 Resources of 2025</p>
-                    </div>
-                    <h1 className="text-balance text-[44px] sm:text-5xl md:text-[68px] font-medium text-[var(--primarytext)] z-100 leading-[43px] md:leading-none">
+                    </motion.div>
+                    <motion.h1
+                     variants={fadeInUp}
+                    className="text-balance text-[44px] sm:text-5xl md:text-[68px] font-medium text-[var(--primarytext)] z-100 leading-[43px] md:leading-none">
                       Discover Dev Tools for developers
-                    </h1>
-                    <p className="text-balance text-[var(--secondarytext)] mt-6 max-w-md z-100">
+                    </motion.h1>
+        <motion.p
+           variants={fadeInUp}
+          className="text-balance text-[var(--secondarytext)] mt-6 max-w-md z-100">
                       We specialize in developer tools . Explore APIs, libraries, templates, and more.
-                    </p>
-                    <div className="flex items-center justify-center gap-4 mt-8 z-[100]">
+                    </motion.p>
+        <motion.div
+           variants={fadeInUp}
+          className="flex items-center justify-center gap-4 mt-8 z-[100]">
           <Link href='/resources'>
           <button className="text-sm md:text-md font-semibold bg-white hover:bg-white/60 transition cursor-pointer rounded-md text-[#434343] py-2 px-3">Check the Tools</button>
 
@@ -68,8 +109,8 @@ const HeroSection = () => {
           <a href='#about'>
                             <button className="learnmore text-sm md:text-md font-semibold cursor-pointer text-white rounded-md p-2">What is DevTrove ?</button>
                   </a>
-                  </div>
-      </div>
+                  </motion.div>
+      </motion.div>
             <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-black to-transparent z-10" />
 
       {/* Bottom Fade Mask */}

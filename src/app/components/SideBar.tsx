@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoMdRemove } from "react-icons/io";
-
+import Image from "next/image";
 type DrawerProps = {
   drawer: boolean;
   setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
@@ -78,9 +78,9 @@ export const SideBar: React.FC<DrawerProps> = ({ drawer, setDrawer }) => {
       </div>
       <hr className="w-full bg-gray-400/50 px-2" />
       <h1 className="text-md font-medium text-white">Saved Repositories</h1>
-      <div className="flex flex-col mt-2 gap-4">
+      <div className="flex flex-col mt-2 gap-4 w-full">
         {showRepo.length === 0 ? (
-          <p className="text-gray-300 text-center mt-10 text-sm w-full">Nothing Saved</p>
+          <div className="text-gray-300 text-center mt-18 text-sm w-full flex flex-col justify-center items-center gap-2"><Image src="/nodata.svg" alt="Logo" width={55} height={55} /> <p>Nothing saved yet</p></div>
         ) : (
           showRepo.map((repo) => (
             <div
