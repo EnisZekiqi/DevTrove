@@ -137,11 +137,11 @@ useEffect(() => {
         {/* Right Section - Tools & Repos */}
         <div className={`flex  flex-col items-start ${isDesktop ? 'pr-6 mt-[5%]' : 'mt-10 ml-[5%]'} gap-10`}>
           {/* Tools */}
-          <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[320px] h-[300px]">
+          <div className="flex flex-col bg-transparent gap-3 border border-[#343434] rounded-xl items-start p-2 w-[320px] h-[300px]">
             <p className="text-sm font-medium mb-4">Latest Tools</p>
             {tools.slice(0, 7).map((tool) => (
               <Link href={`/resources/${tool.id}?type=tools`} key={tool.id}>
-                <div className="text-sm font-light gap-1 flex-row-reverse flex items-center">
+                <div className="text-sm text-white/70 hover:text-white transition-all duration-300 font-light gap-1 flex-row-reverse flex items-center">
                   {tool.name}
                   <img src={tool.icon} alt="" className="w-6 h-6" />
                 </div>
@@ -154,7 +154,7 @@ useEffect(() => {
             <p className="text-sm font-medium mb-4">Explore Repositories</p>
             {data?.repositories.slice(0, 7).map((repo) => (
               <Link href={`/resources/${repo.id}?type=repo`} key={repo.id}>
-                <div className="text-sm font-light flex flex-col items-start gap-2 border-b pb-1 border-[#343434]">
+                <div className="text-sm font-light flex flex-col items-start hover:bg-white/10 transition-all duration-300 gap-2 border-b  p-1 border-[#343434]">
                   <h1 className="text-sm font-medium">{repo.name}</h1>
                   <span className="flex items-center gap-1 text-gray-400">
                     <p

@@ -74,7 +74,7 @@ export default async function ResourceDetail({
             </div>
             <SaveRepoButton repo={repo} />
           </div>
-          <p className="mt-4 text-sm text-gray-300 w-full sm:w-[55%]">{repo.description}</p>
+          <p className="mt-4 text-sm text-gray-300 w-[80%] sm:w-full sm:w-[55%]">{repo.description}</p>
           <div className="flex flex-wrap w-[90%] sm:w-2/4 items-center gap-1.5 mt-4">
             {repo.topics?.map((tag: string) => (
               <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">{tag}</span>

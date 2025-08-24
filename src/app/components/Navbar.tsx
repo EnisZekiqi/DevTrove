@@ -30,6 +30,8 @@ export default function Navbar() {
 
   // search functions with fetching then showing the written prompt
   const [searchQuery, setSearchQuery] = useState('');
+
+
   const [searchResult, setSearchResult] = useState<typeof tools>([])
   
   const { data, isLoading, error } = useQuery({
@@ -106,7 +108,8 @@ const [drawer,setDrawer]=useState(false)
           </div>
         <div className="flex items-center gap-4">
             {!isHome && (
-            <div className="relative flex items-center">
+           <>
+            <div className=" relative flex items-center">
               <input
               type="text"
               value={searchQuery}
@@ -116,7 +119,9 @@ const [drawer,setDrawer]=useState(false)
               <span className="absolute right-2 text-gray-400 pointer-events-none">
               <IoMdSearch size={18} />
               </span>
-            </div>
+              </div>
+            
+           </>
             )}
         <Link href={isResources ? '/resources':(isHome ? '/':'')}> <button className={`rounded-md ${isHome ? 'p-2.5 text-md font-semibold':'p-1 text-sm font-medium'}  border cursor-pointer hover:bg-[#0251EF] border-[#0251EF] transition duration-300`}>{isHome ? <p>Let's Start</p>: <IoMdArrowBack size={22}/>}</button></Link>
           {searchQuery.trim() !== '' && 
@@ -141,7 +146,8 @@ const [drawer,setDrawer]=useState(false)
                     <p className="text-gray-400 text-sm text-center mt-4">No repositories found.</p>
                   ) : (
                     filteredArticles.map((article) => (
-                      <Link href={article.html_url} target="_blank"
+                      <Link href={`/resources/${article.id}?type=repo`} 
+                        onClick={()=>setSearchQuery('')}
                       key={article.id}
                       >
                         <motion.li
@@ -165,7 +171,7 @@ const [drawer,setDrawer]=useState(false)
                   <p className="text-gray-400 text-sm text-center mt-4">No tools found.</p>
                 ) : (
                 searchResult.slice(0, 8).map((tool) => (
-                 <Link href={tool.url} key={tool.id}>
+                 <Link href={`/resources/${tool.id}?type=tools`} onClick={()=>setSearchQuery('')} key={tool.id}>
                 <div className="mt-2 text-gray-300/80" >
                       {tool.name}
                     </div>
