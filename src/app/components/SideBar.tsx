@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoMdRemove } from "react-icons/io";
 import Image from "next/image";
+import { usePathname } from 'next/navigation';
+import { MdOutlineDashboard,MdOutlineVpnKey,MdOutlineArticle,MdOutlineFeed   } from "react-icons/md";
+
 type DrawerProps = {
   drawer: boolean;
   setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,10 +35,10 @@ export const SideBar: React.FC<DrawerProps> = ({ drawer, setDrawer }) => {
   const [showRepo, setShowRepo] = useState<Repo[]>([]);
 
   const HomeFeed = [
-    { text: "Dashboard", link: "/" },
-    { text: "Articles", link: "/articles" },
-    { text: "Tools", link: "/tools" },
-    { text: "Github Repositories", link: "/github" },
+    { text: "Dashboard", link: "/", icon:<MdOutlineDashboard size={25}/> },
+    { text: "Articles", link: "/articles", icon:<MdOutlineArticle size={25}/> },
+    { text: "Tools", link: "/tools", icon:<MdOutlineVpnKey size={25}/> },
+    { text: "Github Repositories", link: "/github", icon:<MdOutlineFeed size={25}/> },
   ];
 
   useEffect(() => {
@@ -51,31 +54,44 @@ export const SideBar: React.FC<DrawerProps> = ({ drawer, setDrawer }) => {
     localStorage.setItem("savedRepos", JSON.stringify(updateRepo));
   };
 
+
+  const pathname = usePathname();
+  
+  
+
   return (
     <>
-      <div className="mt-15 space-y-6 flex flex-col ">
-        {HomeFeed.map((feed, index) => (
-          <div
-            key={index}
-            className="flex flex-col"
-            onMouseEnter={() => setIsClicked(feed.text)}
-            onMouseLeave={() => setIsClicked("")}
-            onClick={() => {
-              setIsClicked(feed.text);
-              setDrawer(false);
-            }}
-          >
-            <Link
-              className={`${
-                isClicked === feed.text ? "text-white" : "text-gray-300"
-              } transition-all duration-300`}
-              href={`/resources${feed.link}`}
-            >
-              {feed.text}
-            </Link>
-          </div>
-        ))}
+      <div className="mt-15 space-y-4 flex flex-col ">
+  {HomeFeed.map((feed, index) => {
+    // Check if this link matches current path
+    const isActive = pathname === `/resources${feed.link}`;
+
+    return (
+      <div
+        key={index}
+        className="flex flex-col w-full"
+        onMouseEnter={() => setIsClicked(feed.text)}
+        onMouseLeave={() => setIsClicked("")}
+        onClick={() => {
+          setIsClicked(feed.text);
+          setDrawer(false);
+        }}
+      >
+        <Link
+          className={`${
+            isActive || isClicked === feed.text ? "text-white font-semibold bg-[#343434]/40 w-full" : "text-white/50 w-fit"
+          } transition-all duration-300 flex items-center gap-4 text-[10.5x] p-1.5 rounded-2xl`}
+          href={`/resources${feed.link}`}
+        >
+          {feed.icon}
+          {feed.text}
+
+        </Link>
       </div>
+    );
+  })}
+</div>
+
       <hr className="w-full bg-gray-400/50 px-2" />
       <h1 className="text-md font-medium text-white">Saved Repositories</h1>
       <div className="flex flex-col mt-2 gap-4 w-full">

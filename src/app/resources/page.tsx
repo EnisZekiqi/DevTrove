@@ -97,7 +97,7 @@ useEffect(() => {
       >
         {/* Left Section - Articles */}
         <div className={`flex flex-col items-start mt-[0%] justify-start w-full ${isDesktop ? 'ml-[25%]' : 'ml-[5%]'}`}>
-          <h1 className="text-start text-xl font-medium">Articles</h1>
+          <h1 className="text-start text-xl font-medium text-[#fbfbfb]/90">Articles</h1>
           <div className="flex flex-col items-start gap-4 mt-8">
             {data?.articles.map((article) => (
               <Link
@@ -127,7 +127,7 @@ useEffect(() => {
                       </p>
                     </div>
                   </div>
-                  {article.title}
+                  <p className="text-[#fbfbfb]/90">{article.title}</p>
                 </div>
               </Link>
             ))}
@@ -138,7 +138,7 @@ useEffect(() => {
         <div className={`flex  flex-col items-start ${isDesktop ? 'pr-6 mt-[5%]' : 'mt-10 ml-[5%]'} gap-10`}>
           {/* Tools */}
           <div className="flex flex-col bg-transparent gap-3 border border-[#343434] rounded-xl items-start p-2 w-[320px] h-[300px]">
-            <p className="text-sm font-medium mb-4">Latest Tools</p>
+            <p className="text-sm font-medium mb-4 text-[#fbfbfb]/90">Latest Tools</p>
             {tools.slice(0, 7).map((tool) => (
               <Link href={`/resources/${tool.id}?type=tools`} key={tool.id}>
                 <div className="text-sm text-white/70 hover:text-white transition-all duration-300 font-light gap-1 flex-row-reverse flex items-center">
@@ -151,11 +151,11 @@ useEffect(() => {
     
           {/* Repositories */}
           <div className="repo flex flex-col bg-[#080808] gap-2 w-[320px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
-            <p className="text-sm font-medium mb-4">Explore Repositories</p>
+            <p className="text-sm font-medium mb-4 text-[#fbfbfb]/90">Explore Repositories</p>
             {data?.repositories.slice(0, 7).map((repo) => (
               <Link href={`/resources/${repo.id}?type=repo`} key={repo.id}>
                 <div className="text-sm font-light flex flex-col items-start hover:bg-white/10 transition-all duration-300 gap-2 border-b  p-1 border-[#343434]">
-                  <h1 className="text-sm font-medium">{repo.name}</h1>
+                  <h1 className="text-sm font-medium text-[#fbfbfb]/80">{repo.name}</h1>
                   <span className="flex items-center gap-1 text-gray-400">
                     <p
                       className="rounded-full h-2 w-2"

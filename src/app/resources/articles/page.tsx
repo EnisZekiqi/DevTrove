@@ -68,9 +68,9 @@ const Articles = () => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{opacity:1,transition:{duration:0.7}}}
-            className={`flex h-full w-screen mt-[20%] sm:mt-[15%] md:mt-[10%] lg:mt-[5%] ${isDesktop ? 'justify-center' : 'justify-start pl-6 sm:pl-10'} `}>
+            className={`flex h-full w-screen mt-[20%] sm:mt-[15%] md:mt-[10%] lg:mt-[5%] ${isDesktop ? ' justify-center' : 'justify-start pl-6 sm:pl-10'} `}>
             <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[0%] items-start justify-center z-[500]">
-            <h1 className="text-start text-xl font-medium">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTag.length > 0 ? selectedTag : 'All'}</h1>
+            <h1 className="text-start text-xl font-medium text-[#fbfbfb]/90">{filter === 'likes' ? 'Most Liked' : filter === 'newest'? 'Newest':'Oldest'} / {selectedTag.length > 0 ? selectedTag : 'All'}</h1>
 
                 <div className="mt-6 flex flex-col gap-4">
                 {data?.map((article) => (
@@ -99,7 +99,7 @@ const Articles = () => {
             </div>
             <button
             onClick={()=>setFilterResponsive(true)}
-                className="block sm:hidden h-fit items-start cursor-pointer   -ml-10 mt-[10%] sm:mt-[20%] z-[500] rounded p-1.5 bg-[#0251EF]"><MdFilterAlt size={23} /></button>
+                className="block sm:hidden h-fit items-start cursor-pointer   -ml-10 mt-[10%] sm:mt-[20%] z-[500] rounded p-1.5 bg-[#0251EF] text-[#fbfbfb]/90"><MdFilterAlt size={23} /></button>
            
           <AnimatePresence>
           {filterResponsive && (
@@ -116,7 +116,7 @@ const Articles = () => {
                   exit={{ y: '-50%', opacity: 0, transition: { duration: 0.3 } }}
                             className="sm:hidden fixed top-[15%] left-1/2 transform -translate-x-1/2 bg-[#0e0e0e] border border-[#343434] rounded-xl p-5 w-[90%] max-w-[350px] z-[1100]">
             <div className="flex items-start justify-between">
-            <p className="text-sm font-medium mb-4">Sort by</p>
+            <p className="text-sm font-medium mb-4 text-[#fbfbfb]/90">Sort by</p>
             <button onClick={()=>setFilterResponsive(false)}><IoMdClose size={22}/></button>
             </div>
                         <label className="flex gap-2 items-center mb-2 text-gray-300/90">
@@ -184,8 +184,8 @@ const Articles = () => {
             
             <div className="hidden sm:flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
                 <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
-                <p className="text-sm font-medium mb-4">Sort by</p>
-                <label className="flex gap-2 items-center">
+                <p className="text-sm font-medium mb-4 text-[#fbfbfb]/90">Sort by</p>
+                <label className="flex gap-2 items-center text-[#fbfbfb]/70">
                     <input
                     type="radio"
                     name="filter"
@@ -197,7 +197,7 @@ const Articles = () => {
                     Newest
                     </label>
                     
-                <label className="flex gap-2 items-center">
+                <label className="flex gap-2 items-center text-[#fbfbfb]/70 ">
                     <input
                     type="radio"
                     name="filter"
@@ -207,7 +207,7 @@ const Articles = () => {
                     />
                     Most Liked
                 </label>
-                <label className="flex gap-2 items-center">
+                <label className="flex gap-2 items-center text-[#fbfbfb]/70">
                     <input
                     type="radio"
                     name="filter"
@@ -219,7 +219,7 @@ const Articles = () => {
                 </label>
                 </div>
                 <div className="flex flex-col gap-2 border border-[#343434] rounded-xl p-2 w-[200px]">
-                    <p className="text-sm font-medium mb-2">Filter by Tag</p>
+                    <p className="text-sm font-medium mb-2 text-[#fbfbfb]/90">Filter by Tag</p>
                     <select
                     className="bg-[#121212] text-white border focus:outline-0 border-[#343434] rounded p-1"
                     onChange={(e) => setSelectedTag(e.target.value as ArticleTag)}

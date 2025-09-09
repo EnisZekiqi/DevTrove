@@ -61,7 +61,7 @@ const GitHub = () => {
         animate={{opacity:1,transition:{duration:0.7}}}
         className="flex h-full w-screen mt-[5%] justify-center">
             <div className="h-full flex flex-col gap-4 mt-[15%] sm:mt-[13%] lg:mt-0 -ml-[0%] items-start justify-center z-[500]">
-            <h1 className="text-start text-xl font-medium">{repoFilter === 'stars'? 'Most Stars': 'Newest Update'} </h1>
+            <h1 className="text-start text-xl font-medium text-[#fbfbfb]/90">{repoFilter === 'stars'? 'Most Stars': 'Newest Update'} </h1>
 
                 <div className="mt-6 flex flex-col gap-4">
                 {data?.filter((repo): repo is Repo => !!repo && typeof repo.id !== 'undefined').map((repo) => (
@@ -115,7 +115,7 @@ const GitHub = () => {
         </div>
 
         <div className="flex flex-col gap-3 text-gray-300/90">
-          <label className="flex gap-2 items-center">
+          <label className="flex gap-2 items-center text-[#fbfbfb]/70">
             <input
               type="radio"
               name="filter"
@@ -129,7 +129,7 @@ const GitHub = () => {
             />
             Most Stars
           </label>
-          <label className="flex gap-2 items-center">
+          <label className="flex gap-2 items-center text-[#fbfbfb]/70">
             <input
               type="radio"
               name="filter"
@@ -151,8 +151,8 @@ const GitHub = () => {
 
             <div className="hidden sm:flex flex-col fixed pr-6 gap-10 mt-[5%] ml-[0%] right-0 z-[500]">
                             <div className="flex flex-col bg-transparent gap-2 border border-[#343434] rounded-xl p-2 w-[200px] h-auto">
-                <p className="text-sm font-medium mb-4">Sort by</p>
-                <label className="flex gap-2 items-center">
+                <p className="text-sm font-medium mb-4 text-[#fbfbfb]/90">Sort by</p>
+                <label className="flex gap-2 items-center text-[#fbfbfb]/70">
                     <input
                     type="radio"
                     name="filter"
@@ -164,7 +164,7 @@ const GitHub = () => {
                     Most Stars
                     </label>
                     
-                <label className="flex gap-2 items-center">
+                <label className="flex gap-2 items-center text-[#fbfbfb]/70">
                     <input
                     type="radio"
                     name="filter"
@@ -187,7 +187,7 @@ export default GitHub;
     function LoadingRepo() {
       return (<div className="flex h-full w-screen mt-[5%] justify-center">
             <div className="h-full flex flex-col gap-4 mt-[0%] -ml-[5%] items-start justify-center z-[500]">
-            <h1 className="text-start text-xl font-medium">Most Stars </h1>
+            <h1 className="text-start text-xl font-medium text-[#fbfbfb]/90">Most Stars </h1>
 
                 <div className="mt-6 flex flex-col gap-4">
                 {[...Array(8)].map((_, i) => (
