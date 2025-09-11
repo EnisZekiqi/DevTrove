@@ -86,7 +86,7 @@ export default async function ResourceDetail({
           <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90"><IoMdCalendar size={23} />: <span className="text-gray-400">{repo.updated_at}</span></p>
           <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90">License: <span className="text-gray-400">{repo.license?.name}</span></p>
           <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90">Owner Repository: <span className="text-gray-400">{repo.owner.login}</span></p>
-          <a href={repo.html_url} target="_blank" className="text-blue-400 underline mt-4 block w-fit">View on GitHub</a>
+          <a href={repo.html_url} target="_blank" className="text-blue-400 underline mt-8 block w-fit">View on GitHub</a>
         </div>
       );
     }

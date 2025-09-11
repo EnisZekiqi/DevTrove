@@ -158,7 +158,7 @@ const Articles = () => {
             />
             Oldest
         </label>
-        <p className="text-sm font-medium mt-4 mb-2">Filter by Tag</p>
+        <p className="text-sm font-medium mt-4 mb-2 text-[#fbfbfb]/90">Filter by Tag</p>
         <select
             className="bg-[#121212] text-white border border-[#343434] rounded p-1 w-full"
             onChange={(e) => {
