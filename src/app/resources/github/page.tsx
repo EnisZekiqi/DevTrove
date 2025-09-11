@@ -89,7 +89,7 @@ const GitHub = () => {
             </div>
              <button
                 onClick={()=>setFilterRepo(true)}
-                className="block sm:hidden h-fit items-start cursor-pointer  -ml-10 mt-[23%] sm:mt-[20%] z-[500] rounded p-1.5 bg-[#0251EF]"><MdFilterAlt size={23} /></button>
+                className="block sm:hidden h-fit items-start cursor-pointer  -ml-10 mt-[23%] sm:mt-[20%] z-[500] rounded p-1.5 bg-[#0251EF] text-[#fbfbfb]/90"><MdFilterAlt size={23} /></button>
             <AnimatePresence>
   {filterRepo && (
     <>
@@ -110,8 +110,8 @@ const GitHub = () => {
         className="fixed top-[15%] left-1/2 transform -translate-x-1/2 bg-[#0e0e0e] border border-[#343434] rounded-xl p-5 w-[90%] max-w-[350px] z-[1100]"
       >
         <div className="flex justify-between items-center mb-4">
-          <p className="text-sm font-medium">Sort Repos</p>
-          <IoMdClose className="cursor-pointer" size={22} onClick={() => setFilterRepo(false)} />
+          <p className="text-sm font-medium text-[#fbfbfb]/90">Sort Repos</p>
+          <IoMdClose className="cursor-pointer text-[#fbfbfb]/90" size={22} onClick={() => setFilterRepo(false)} />
         </div>
 
         <div className="flex flex-col gap-3 text-gray-300/90">

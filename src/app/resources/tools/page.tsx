@@ -101,7 +101,7 @@ filteredTools.map((tool) => (
               >
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-sm font-medium text-[#fbfbfb]/90">Sort Tools</p>
-                  <IoMdClose className="cursor-pointer" size={22} onClick={() => setFilterTool(false)} />
+                  <IoMdClose className="cursor-pointer text-[#fbfbfb]/90" size={22} onClick={() => setFilterTool(false)} />
                 </div>
         
                 <div className="flex flex-col gap-3 text-gray-300/90">

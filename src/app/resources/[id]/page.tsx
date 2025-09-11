@@ -35,9 +35,9 @@ export default async function ResourceDetail({
         <div className="p-10 h-full w-full mt-[15%] sm:mt-[5%] -ml-2 sm:ml-[25%]">
           <div className="flex items-center gap-4 mb-4">
             <img src={article.user.profile_image} alt={article.user.name} className="w-10 h-10 rounded-full" />
-            <p className="text-sm">{article.user.name}</p>
+            <p className="text-sm text-[#fbfbfb]/80">{article.user.name}</p>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold">{article.title}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#fbfbfb]/90">{article.title}</h1>
           <p className="mt-4 text-sm text-gray-400 w-full sm:w-2/3">{article.description}</p>
 
           <div className="flex gap-3 mt-2">
@@ -80,13 +80,13 @@ export default async function ResourceDetail({
               <span key={tag} className="bg-gray-800 text-white text-xs px-2 py-1 rounded">{tag}</span>
             ))}
           </div>
-          <p className="mt-4">Language: <span style={{ color: repo.language === 'JavaScript' ? 'yellow' : (repo.language === 'TypeScript' ? 'aqua' : (repo.language === 'C++' ? 'blue' : '#343434')) }}>{repo.language}</span></p>
-          <p className="mt-2 flex items-center gap-1"><IoMdStarOutline size={23} />: <span className="text-gray-400">{repo.stargazers_count} stars</span></p>
-          <p className="mt-2 flex items-center gap-1"><AiOutlineFork size={22} />: <span className="text-gray-400">{repo.forks_count} forks</span></p>
-          <p className="mt-2 flex items-center gap-1"><IoMdCalendar size={23} />: <span className="text-gray-400">{repo.updated_at}</span></p>
-          <p className="mt-2 flex items-center gap-1">License: <span className="text-gray-400">{repo.license?.name}</span></p>
-          <p className="mt-2 flex items-center gap-1">Owner Repository: <span className="text-gray-400">{repo.owner.login}</span></p>
-          <a href={repo.html_url} target="_blank" className="text-[#0251EF] underline mt-4 block w-fit">View on GitHub</a>
+          <p className="mt-4 text-[#fbfbfb]/90">Language: <span style={{ color: repo.language === 'JavaScript' ? 'yellow' : (repo.language === 'TypeScript' ? 'aqua' : (repo.language === 'C++' ? 'blue' : '#343434')) }}>{repo.language}</span></p>
+          <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90"><IoMdStarOutline size={23} />: <span className="text-gray-400">{repo.stargazers_count} stars</span></p>
+          <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90"><AiOutlineFork size={22} />: <span className="text-gray-400">{repo.forks_count} forks</span></p>
+          <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90"><IoMdCalendar size={23} />: <span className="text-gray-400">{repo.updated_at}</span></p>
+          <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90">License: <span className="text-gray-400">{repo.license?.name}</span></p>
+          <p className="mt-2 flex items-center gap-1 text-[#fbfbfb]/90">Owner Repository: <span className="text-gray-400">{repo.owner.login}</span></p>
+          <a href={repo.html_url} target="_blank" className="text-blue-400 underline mt-4 block w-fit">View on GitHub</a>
         </div>
       );
     }
@@ -99,7 +99,7 @@ export default async function ResourceDetail({
         <div className="h-full w-full flex flex-col mt-[28%] sm:mt-[8%] ml-7 sm:ml-[25%] max-w-[700px]">
           <div className="flex items-center gap-3 mb-4">
             <img src={tool.icon} alt={tool.name} className="w-10 h-10" />
-            <h1 className="text-2xl font-bold">{tool.name}</h1>
+            <h1 className="text-2xl font-bold text-[#fbfbfb]/90">{tool.name}</h1>
           </div>
 
           <p className="text-sm text-gray-300">{tool.description}</p>
@@ -111,22 +111,22 @@ export default async function ResourceDetail({
           </div>
 
           <div className="mt-4">
-            <h2 className="font-semibold">Category:</h2>
+            <h2 className="font-semibold text-[#fbfbfb]/90">Category:</h2>
             <p className="text-sm text-gray-400">{tool.category}</p>
           </div>
 
           <div className="mt-2">
-            <h2 className="font-semibold">Features:</h2>
+            <h2 className="font-semibold text-[#fbfbfb]/90">Features:</h2>
             <p className="text-sm text-gray-400">{tool.features}</p>
           </div>
 
           <div className="mt-2">
-            <h2 className="font-semibold">Pricing:</h2>
+            <h2 className="font-semibold text-[#fbfbfb]/90">Pricing:</h2>
             <p className="text-sm text-gray-400">{tool.pricing}</p>
           </div>
 
           <div className="mt-2">
-            <h2 className="font-semibold">Integration Support:</h2>
+            <h2 className="font-semibold text-[#fbfbfb]/90">Integration Support:</h2>
             <p className="text-sm text-gray-400">{tool.integrationSupport}</p>
           </div>
 

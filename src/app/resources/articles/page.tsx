@@ -117,7 +117,7 @@ const Articles = () => {
                             className="sm:hidden fixed top-[15%] left-1/2 transform -translate-x-1/2 bg-[#0e0e0e] border border-[#343434] rounded-xl p-5 w-[90%] max-w-[350px] z-[1100]">
             <div className="flex items-start justify-between">
             <p className="text-sm font-medium mb-4 text-[#fbfbfb]/90">Sort by</p>
-            <button onClick={()=>setFilterResponsive(false)}><IoMdClose size={22}/></button>
+            <button onClick={()=>setFilterResponsive(false)} className="text-[#fbfbfb]/90"><IoMdClose size={22}/></button>
             </div>
                         <label className="flex gap-2 items-center mb-2 text-gray-300/90">
             <input

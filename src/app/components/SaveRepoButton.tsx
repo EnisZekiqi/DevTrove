@@ -58,7 +58,7 @@ export default function SaveRepoButton({ repo }: Props) {
       } transition-all duration-300 cursor-pointer items-center gap-1 text-sm`}
     >
       {isSaved ? <MdBookmarkAdded size={22} className="text-white"/> : <MdOutlineBookmarkBorder size={22} className="text-white" />}
-      {isSaved ? "Saved" : "Save"}
+      <p className="text-[#fbfbfb]/90">{isSaved ? "Saved" : "Save"}</p>
     </div>
   );
 }

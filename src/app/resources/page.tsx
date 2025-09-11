@@ -114,7 +114,7 @@ useEffect(() => {
                 }}
                 key={article.id}
               >
-                <div className="bg-[#080808] flex flex-col items-start gap-1 w-[320px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
+                <div className="bg-[#080808] flex flex-col items-start gap-1 w-[350px] lg:w-[600px] border border-[#343434] p-1.5 rounded-xl">
                   <div className="flex items-center gap-1.5">
                     <div className="flex items-center gap-2 mb-0.5">
                       <img
