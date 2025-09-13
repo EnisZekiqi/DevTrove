@@ -124,8 +124,19 @@ const [drawer,setDrawer]=useState(false)
            </>
             )}
         <Link href={isResources ? '/resources':(isHome ? '/':'')}> <button className={`rounded-md ${isHome ? 'p-2.5 text-md font-semibold':'p-1 text-sm font-medium'}  border cursor-pointer hover:bg-[#0251EF] border-[#0251EF] transition duration-300`}>{isHome ? <p>Let's Start</p>: <IoMdArrowBack size={22}/>}</button></Link>
+         <AnimatePresence mode='wait'>
+         {searchQuery.trim() !== '' && 
+          <motion.div 
+          initial={{opacity:0}}
+          animate={{opacity:1 ,transition:{duration:0.3}}}
+          exit={{opacity:0,transition:{duration:0.3}}}
+          className='fixed top-0 right-0 left-0 bottom-0 bg-black/40 opacity-60 w-full h-screen' onClick={()=>
+            {setChooseWhich('') ; setSearchQuery('')}}></motion.div>
+         }
+         </AnimatePresence>
           {searchQuery.trim() !== '' && 
           <AnimatePresence mode="wait">
+           
           <motion.ul
             initial={{ opacity: 0, y: -100 }}
             animate={{opacity:1,y:0,transition:{duration:0.3}}}
@@ -153,6 +164,7 @@ const [drawer,setDrawer]=useState(false)
                         <motion.li
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
+                        whileHover={{opacity:0.8,transition:{duration:0.2}}}
                         className="mt-2 text-gray-300/80"
                       >
                         {article.name}
@@ -172,7 +184,7 @@ const [drawer,setDrawer]=useState(false)
                 ) : (
                 searchResult.slice(0, 8).map((tool) => (
                  <Link href={`/resources/${tool.id}?type=tools`} onClick={()=>setSearchQuery('')} key={tool.id}>
-                <div className="mt-2 text-gray-300/80" >
+                <div className="mt-2 text-gray-300/80 hover:text-gray-100 transition duration-300" >
                       {tool.name}
                     </div>
                     </Link>

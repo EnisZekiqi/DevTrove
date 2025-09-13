@@ -70,7 +70,7 @@ export default async function ResourceDetail({
           <div className="flex justify-between items-center w-[90%] sm:w-[50%]">
             <div className="flex items-center gap-3">
               <img className="w-10 h-10 border border-[#343434] rounded-full" src={repo.owner.avatar_url} alt="" />
-              <h1 className="text-2xl font-bold">{repo.name}</h1>
+              <h1 className="text-2xl font-bold text-[#fbfbfb]/90">{repo.name}</h1>
             </div>
             <SaveRepoButton repo={repo} />
           </div>
