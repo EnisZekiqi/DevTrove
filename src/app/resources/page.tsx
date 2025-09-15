@@ -64,7 +64,7 @@ useEffect(() => {
           <div className="flex flex-col bg-transparent gap-2.5 border border-[#343434] rounded-xl items-start p-2 w-[300px] h-[300px]">
             <p className="text-sm font-medium mb-4">Latest Tools</p>
             {[...Array(6)].map((_, i) => (
-                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />
+                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-10 w-[270px]  p-1.5 rounded-md" />
                   ))}
           </div>
     
@@ -72,7 +72,7 @@ useEffect(() => {
           <div className="repo flex flex-col bg-[#080808] gap-2 w-[300px] h-[100%] overflow-y-auto rounded-xl p-2 border border-[#343434]">
             <p className="text-sm font-medium mb-4">Explore Repositories</p>
             {[...Array(8)].map((_, i) => (
-                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-16 w-[300px] lg:w-[600px] p-1.5 rounded-md" />
+                    <div key={i} className="animate-pulse bg-[#080808] border border-[#343434] h-10 w-[270px]  p-1.5 rounded-md" />
                   ))}
           </div>
         </div>
